@@ -1,0 +1,26 @@
+name: PR Comment Checker
+
+on:
+  pull_request:
+    branches: ["main"]
+  workflow_dispatch:
+
+
+jobs:
+  comment_checker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check if PR has a comment
+        uses: actions/github-script@v5
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { data: comments } = await github.pulls.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.payload.pull_request.number,
+            });
+
+            if (comments.length === 0) {
+              core.setFailed('This pull request must have at least one comment before merging.');
+            }
