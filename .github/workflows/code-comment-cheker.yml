@@ -25,15 +25,23 @@ jobs:
 
       - name: Calculate comment percentage
         run: |
-          cloc_output=$(cloc --exclude-dir=node_modules --csv --quiet .)
-          total=$(echo "$cloc_output" | awk -F, 'NR==2{print $2}')
-          comment=$(echo "$cloc_output" | awk -F, 'NR==2{print $4}')
+          cloc_output=$(cloc --exclude-dir=node_modules --csv --quiet . | tail -n 1)
+          total=$(echo "$cloc_output" | awk -F, '{print $5}')
+          comment=$(echo "$cloc_output" | awk -F, '{print $7}')
+      
+          if ! [[ "$total" =~ ^[0-9]+$ ]]; then
+            echo "Error: Total lines of code is not a valid number."
+            exit 1
+          fi
+      
           if [ "$total" -eq 0 ]; then
             echo "Total lines of code is zero. Cannot calculate percentage."
             exit 1
           fi
+      
           percentage=$(awk "BEGIN { pc=100*${comment}/${total}; i=int(pc); print (pc-i<0.5)?i:i+1 }")
           echo "Percentage of commented lines: $percentage%"
+
 
       - name: Check comment percentage
         run: |
