@@ -27,5 +27,5 @@ jobs:
         run: npm install eslint
 
       - name: Lint with ESLint
-        run: npx eslint . --ext .js --no-error-on-unmatched-pattern
+        run:  npx eslint . --ext .js --format=unix --no-error-on-unmatched-pattern
 
