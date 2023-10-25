@@ -18,11 +18,10 @@ jobs:
 
     steps:
       - name: Check title
-        uses: actions/github-script@v5
+        uses: actions/github-script@v6
         with:
           script: |
             const title = github.pullRequests.get(context.issue.number).title;
-            const description = github.pullRequests.get(context.issue.number).description;
             if (!title) {
               github.pullRequests.update(context.issue.number, {
                 state: "rejected",
