@@ -26,8 +26,8 @@ jobs:
       - name: Calculate comment percentage
         run: |
           cloc_output=$(cloc --exclude-dir=node_modules --csv --quiet . | tail -n 1)
-          total=$(echo "$cloc_output" | awk -F, '{print $5}')
-          comment=$(echo "$cloc_output" | awk -F, '{print $6}')
+          total=$(echo "$cloc_output" | awk -F, '{sum += $5} END {print sum}')
+          comment=$(echo "$cloc_output" | awk -F, '{sum += $6} END {print sum}')
       
           if ! [[ "$total" =~ ^[0-9]+$ ]]; then
             echo "Error: Total lines of code is not a valid number."
