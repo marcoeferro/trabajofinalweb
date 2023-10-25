@@ -1,2 +1,2 @@
 // this is a comment
-// console.log('test')
+console.log('test')
