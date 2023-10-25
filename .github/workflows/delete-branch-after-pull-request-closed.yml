@@ -1,4 +1,4 @@
-name: Delete Branch After Pull Request Merge
+name: Delete Branch After PR Merge
 
 on:
   pull_request:
@@ -9,12 +9,13 @@ jobs:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
     - name: Delete Branch
       if: github.event.pull_request.merged == true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         BRANCH_NAME: ${{ github.event.pull_request.head.ref }}
       run: |
-        git fetch --prune
         git push origin --delete $BRANCH_NAME
 
