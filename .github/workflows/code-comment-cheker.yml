@@ -39,8 +39,14 @@ jobs:
             exit 1
           fi
       
+          if ! [[ "$comment" =~ ^[0-9]+$ ]]; then
+            echo "Error: Comment lines is not a valid number."
+            exit 1
+          fi
+      
           percentage=$(awk "BEGIN { pc=100*${comment}/${total}; i=int(pc); print (pc-i<0.5)?i:i+1 }")
           echo "Percentage of commented lines: $percentage%"
+
 
 
       - name: Check comment percentage
