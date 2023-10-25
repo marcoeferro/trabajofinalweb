@@ -1,13 +1,8 @@
-# This is a basic workflow to help you get started with Actions
-
 name: Console Log Checker
 
-# Controls when the workflow will run
 on:
   pull_request:
-    branches: [ "main" ]
-
-  # Allows you to run this workflow manually from the Actions tab
+    branches: ["main"]
   workflow_dispatch:
 
 jobs:
@@ -24,13 +19,13 @@ jobs:
         with:
           node-version: '14'
 
-      - name: Check for console.log()
+      - name: Create ESLint configuration
         run: |
-          # Muestra los archivos que contienen console.log()
-          files=$(grep -Rl "console\.log" .)
-          if [ -n "$files" ]; then
-            echo "Se encontraron console.log() en los siguientes archivos: $files"
-            exit 1
-          else
-            echo "No se encontraron console.log() en el código."
-          fi
+          echo '{ "rules": { "no-console": "error" } }' > .eslintrc.json
+
+      - name: Install ESLint
+        run: npm install eslint
+
+      - name: Lint with ESLint
+        run: npx eslint . --ext .js --no-error-on-unmatched-pattern
+
