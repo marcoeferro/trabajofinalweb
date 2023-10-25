@@ -25,8 +25,8 @@ jobs:
 
       - name: Calculate comment percentage
         run: |
-          total=$(cloc --exclude-dir=node_modules --csv --quiet . | awk -F, 'NR==2{print $5}')
-          comment=$(cloc --exclude-dir=node_modules --csv --quiet . | awk -F, 'NR==2{print $6}')
+          total=$(cloc --exclude-dir=node_modules --csv --quiet . | awk -F, 'NR==2{print $2}')
+          comment=$(cloc --exclude-dir=node_modules --csv --quiet . | awk -F, 'NR==2{print $4}')
           percentage=$(awk "BEGIN { pc=100*${comment}/${total}; i=int(pc); print (pc-i<0.5)?i:i+1 }")
           echo "Percentage of commented lines: $percentage%"
 
