@@ -1,4 +1,4 @@
-name: PR Comment Checker
+name: Pull Request Comment Checker
 
 on:
   pull_request:
@@ -9,17 +9,16 @@ jobs:
   comment_checker:
     runs-on: ubuntu-latest
     steps:
-      - name: Check if PR has a comment
-        uses: actions/github-script@v5
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const { data: comments } = await github.request('GET /repos/{owner}/{repo}/issues/{issue_number}/comments', {
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.payload.pull_request.number
-            });
-
-            if (comments.length === 0) {
-              core.setFailed('This pull request must have at least one comment before merging.');
-            }
+      - name: Check if PR has a description
+        if: github.event_name == 'pull_request'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          PR_NUMBER=$(echo "${{ github.event.pull_request.number }}")
+          DESCRIPTION=$(curl -s -H "Authorization: token $GITHUB_TOKEN" -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/${{ github.repository }}/pulls/${PR_NUMBER} | jq -r '.body')
+          if [ "$DESCRIPTION" == "" ] || [ "$DESCRIPTION" == "null" ]; then
+            echo "Pull request must have a description before merging."
+            exit 1
+          else
+            echo "Pull request has a description."
+          fi
