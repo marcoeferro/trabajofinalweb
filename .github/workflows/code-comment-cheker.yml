@@ -27,7 +27,7 @@ jobs:
         run: |
           cloc_output=$(cloc --exclude-dir=node_modules --csv --quiet . | tail -n 1)
           total=$(echo "$cloc_output" | awk -F, '{print $5}')
-          comment=$(echo "$cloc_output" | awk -F, '{print $7}')
+          comment=$(echo "$cloc_output" | awk -F, '{print $6}')
       
           if ! [[ "$total" =~ ^[0-9]+$ ]]; then
             echo "Error: Total lines of code is not a valid number."
@@ -46,8 +46,6 @@ jobs:
       
           percentage=$(awk "BEGIN { pc=100*${comment}/${total}; i=int(pc); print (pc-i<0.5)?i:i+1 }")
           echo "Percentage of commented lines: $percentage%"
-
-
 
       - name: Check comment percentage
         run: |
