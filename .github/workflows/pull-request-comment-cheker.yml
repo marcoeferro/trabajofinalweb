@@ -14,10 +14,10 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const { data: comments } = await github.pulls.listComments({
+            const { data: comments } = await github.request('GET /repos/{owner}/{repo}/issues/{issue_number}/comments', {
               owner: context.repo.owner,
               repo: context.repo.repo,
-              pull_number: context.payload.pull_request.number,
+              issue_number: context.payload.pull_request.number
             });
 
             if (comments.length === 0) {
