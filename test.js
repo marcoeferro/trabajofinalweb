@@ -3,9 +3,3 @@
 utimo_test=2
 verdaderamenteelutimo=2
 asd=2
-asd=2
-asd=2
-asd=2
-asd=2
-asd=2
-asd=2
