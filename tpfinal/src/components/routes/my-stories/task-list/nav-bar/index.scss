@@ -1,0 +1,22 @@
+.nav-bar {
+    box-sizing: border-box;
+    background-color: #163e6a;
+    height: 75px;
+    width: 100%;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding: 0 30px;
+    position: sticky;
+    top: 0;
+    .story-name {
+      font-size: 1.5rem;
+    }
+    .icon{
+      color:#ff6b71;
+    }
+  }
