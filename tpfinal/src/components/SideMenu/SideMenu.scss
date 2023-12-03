@@ -1,7 +1,100 @@
-.MenuBody {
-    display: flex
-}
+.menu-container {
+    width: 75vw;
+    height: 100vh;
+    border: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-color: #F8EDE9;
+    border-radius: 0px 10px 10px 0px;
+    z-index: 2;
+    position: absolute;
 
-.background {
-    background-color: aqua;
+    &.expanded {
+        transform: translateX(-13vw);
+    }
+
+    .menu-content {
+        height: 100vh;
+        width: 70vw;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .menu-header {
+            position: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 65vw;
+            top: 0;
+            background-color: #424044;
+            border-radius: 0px 10px 10px 0px;
+        }
+
+        .menu-body {
+            width: 65vw;
+            height: 406px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background-color: #424044;
+            border-radius: 0px 10px 10px 0px;
+        }
+
+        .menu-footer {
+            position: fixed;
+            bottom: 0;
+            width: 65vw;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            background-color: #424044;
+            border-radius: 0px 10px 10px 0px;
+
+            .footer-text {
+                display: flex;
+                flex-direction: column;
+
+                h5,
+                h6 {
+                    margin: 5px;
+                }
+            }
+
+            .footer-profile-picture {
+                border-radius: 50%;
+                width: 70px;
+                height: 70px;
+                object-fit: cover;
+                margin: 5px;
+            }
+        }
+    }
+
+    transform: translateX(-78vw);
+    transition: transform 1s cubic-bezier(0.19, 1, 0.22, 1);
+
+    .menu-burgermenu {
+        height: 100vh;
+        width: 30vw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        span.material-symbols-outlined {
+            color: #424044;
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+
+    }
+
 }
