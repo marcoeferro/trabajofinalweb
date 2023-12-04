@@ -4,10 +4,10 @@ import SideMenu from './components/SideMenu/SideMenu'
 import { createBrowserRouter,RouterProvider } from 'react-router-dom'
 import App from './App'
 import './index.css'
-import CreateEpic from './components/routes/my-projects/project-n/epic-k/create-epic'
-import CreateStory from './components/routes/my-stories/create-story'
-import TaskList from './components/routes/my-stories/task-list'
-
+import CreateEpic from './components/create-epic'
+import CreateStory from './components/create-story'
+import CreateProject from './components/create-project'
+import TaskList from './components/task-list'
 const router = createBrowserRouter([
   {
     path: "/",
@@ -28,6 +28,10 @@ const router = createBrowserRouter([
   {
     path: "/task-list",
     element: <TaskList/>
+  },
+  {
+    path: "/create-project",
+    element: <CreateProject/>
   },
 ])
 
