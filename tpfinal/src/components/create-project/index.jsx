@@ -10,7 +10,7 @@ function CreateProject() {
 
   const handleNew = (event) => {
     event.preventDefault();
-    postProject(name,description,icon);
+    postProject(name,description,icon,[]);
   };
 
   return (

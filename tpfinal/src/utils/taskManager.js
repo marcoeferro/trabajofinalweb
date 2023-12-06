@@ -14,32 +14,41 @@ const clearData = (data) => {
   data.map((item) => {
     filteredData.push({
       name: item.fields.name.stringValue,
+      description: item.fields.description.stringValue,
+      storyId: item.fields.storyId.integerValue,
       id: item.name.split("/").pop(),
-      deadline: item.fields.deadline.stringValue,
-      created: item.fields.created.stringValue,
+      dueDate: item.fields.dueDate.timestampValue,
+      createdDate: item.fields.createdDate.timestampValue,
     });
   });
   return filteredData; //clears data
 };
 //POST//
-const dataBuilder = (name, deadline, created) => {
+const dataBuilder = (name, description, storyId,createdDate,dueDate) => {
   return {
     fields: {
       name: {
         stringValue: name,
       },
-      deadline: {
-        stringValue: deadline,
+      description: {
+        stringValue: description,
       },
-      created: {
-        stringValue: created,
+      storyId: {
+        integerValue: storyId,
       },
+      createdDate: {
+        timestampValue: createdDate.format('YYYY-MM-DDTHH:mm:ss.SSSZ'),
+      },
+      dueDate: {
+        timestampValue: dueDate.format('YYYY-MM-DDTHH:mm:ss.SSSZ')
+      }
     },
   };
 };
 
-export async function postTask(name, deadline, created) {
+export async function postTask(name, description, storyId,createdDate,dueDate) {
   const dateID = Date.now();
+  const data = dataBuilder(name, description, storyId,createdDate,dueDate);
   const targetUrl =
     "https://firestore.googleapis.com/v1/projects/p-manager-1a182/databases/(default)/documents/tasks/?documentId=" +
     dateID.toString();
@@ -47,7 +56,6 @@ export async function postTask(name, deadline, created) {
     method: "POST",
     body: JSON.stringify(data),
   };
-  const data = dataBuilder(name, deadline, created);
   const response = await fetch(targetUrl, options)
     .then((response) => response.json())
     .then((data) => console.log(data));
@@ -55,11 +63,11 @@ export async function postTask(name, deadline, created) {
 
 //PATCH
 
-export async function patchTask(object) {
+export async function patchTask(name, description, storyId,createdDate,dueDate,id) {
   const targetUrl =
     "https://firestore.googleapis.com/v1/projects/p-manager-1a182/databases/(default)/documents/tasks/" +
-    object.id.toString(); //url objetivo, object.id es la id del documento a reemplazar
-  const data = dataBuilder(object.name, object.deadline, object.created);
+    id.toString(); //url objetivo, object.id es la id del documento a reemplazar
+  const data = dataBuilder(name, description, storyId,createdDate,dueDate);
   const options = {
     //opciones de funcion fetch.
     method: "PATCH",
