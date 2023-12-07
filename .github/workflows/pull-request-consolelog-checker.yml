@@ -24,8 +24,8 @@ jobs:
           echo '{ "rules": { "no-console": "error" } }' > .eslintrc.json
 
       - name: Install ESLint
-        run: npm install eslint-plugin-react@latest --save-dev
+        run: npm install eslint
 
       - name: Lint with ESLint
-        run:  npx eslint . --ext .js --format=unix --no-error-on-unmatched-pattern
+        run:  npx eslint . --ext .js --format=unix --no-error-on-unmatched-pattern --no-eslintrc
 
