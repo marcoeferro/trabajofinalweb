@@ -3,14 +3,14 @@ import "./index.scss";
 import { useState } from "react";
 import { postProject } from "@/utils/projectManager";
 
-function CreateProject() {
+function CreateProject({ onClose }) {
   const [name, setName] = useState(null);
   const [description, setDescription] = useState(null);
   const [icon, setIcon] = useState(null);
 
   const handleNew = (event) => {
     event.preventDefault();
-    postProject(name,description,icon,[]);
+    postProject(name, description, icon, []);
   };
 
   return (
@@ -36,25 +36,29 @@ function CreateProject() {
         <div className="icon-selector">
           <p>selecciona un icono!</p>
           <button className="icon" type="Button"
-            onClick={()=>setIcon("🚀")}
+            onClick={() => setIcon("🚀")}
           >🚀</button>
           <button className="icon" type="Button"
-            onClick={()=>setIcon("🔍")}
+            onClick={() => setIcon("🔍")}
           >🔍</button>
           <button className="icon" type="Button"
-            onClick={()=>setIcon("📈")}
+            onClick={() => setIcon("📈")}
           >📈</button>
           <button className="icon" type="Button"
-            onClick={()=>setIcon("📝")}
+            onClick={() => setIcon("📝")}
           >📝</button>
           <button className="icon" type="Button"
-            onClick={()=>setIcon("🎯")}
+            onClick={() => setIcon("🎯")}
           >🎯</button>
         </div>
-        <button className="create-project-submit"
-          onClick={handleNew}
-        >Submit</button>
+        <div className="modal-buttons">
+          <button className="create-project-submit"
+            onClick={handleNew}
+          >Submit</button>
+          <button className="close-modal" onClick={onClose}>Close</button>
+        </div>
       </form>
+
     </div>
   );
 }
