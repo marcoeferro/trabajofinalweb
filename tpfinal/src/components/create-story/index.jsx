@@ -58,7 +58,7 @@ function CreateStory() {
             }}
           ></textarea>
           <div className="date-picker-container">
-            <DatePicker label="fecha de entrega" value={dueDate} />
+            <DatePicker label="fecha de entrega" value={dueDate} onChange={(date) => setDueDate(date)}/>
             <div className="points-container">
               <label>Story Points</label>
               <input

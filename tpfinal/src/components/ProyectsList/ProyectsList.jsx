@@ -11,9 +11,9 @@ const ProyectsList = ({ listaProyectos }) => {
     const [listaFiltrada, setListaFiltrada] = useState(listaProyectos);
 
     // Inicializa los filtros
-    const [filtroTitulo, setfiltroTitulo] = useState('');
-    const [filtroFecha, setFiltroFecha] = useState(null);
-    const [filtroEstado, setFiltroEstado] = useState('');
+    const [filtroName, setfiltroName] = useState('');
+    const [filtroDate, setFiltroDate] = useState(null);
+    const [filtroState, setFiltroState] = useState('');
 
     //modal
     const [open, setOpen] = React.useState(false);
@@ -23,25 +23,29 @@ const ProyectsList = ({ listaProyectos }) => {
 
     //Funciones Filtro
     const filtrarLista = () => {
-        if (!filtroTitulo && !filtroFecha && !filtroEstado) {
+        if (!filtroName && !filtroDate && !filtroState) {
             limpiarFiltros()
         } else {
-            const nuevaListaFiltrada = lista.filter((proyecto) => (proyecto.titulo == filtroTitulo || proyecto.fechaVencimiento == filtroFecha || proyecto.estado == filtroEstado))
+            const nuevaListaFiltrada = lista.filter((proyecto) => (proyecto.name == filtroName || proyecto.dueDate == filtroDate || proyecto.state == filtroState))
             setListaFiltrada(nuevaListaFiltrada)
         }
 
     };
 
     const limpiarFiltros = () => {
-        setfiltroTitulo('');
-        setFiltroFecha(null);
-        setFiltroEstado('');
+        setfiltroName('');
+        setFiltroDate(null);
+        setFiltroState('');
         setListaFiltrada(lista);
     };
 
     //Renderizado para cambios de la lista
     useEffect(() => {
+        getProjects().then((data) => setLista(data))
     }, [listaFiltrada]);
+    useEffect(() => {
+        getProjects().then((data) => setLista(data))
+    }, [])
 
     return (
 
@@ -60,19 +64,19 @@ const ProyectsList = ({ listaProyectos }) => {
             <div className='filtro'>
                 <input
                     type="text"
-                    value={filtroTitulo || ''}
-                    onChange={(e) => setfiltroTitulo(e.target.value)}
-                    placeholder='Ingrese el Titulo'
+                    value={filtroName || ''}
+                    onChange={(e) => setfiltroName(e.target.value)}
+                    placeholder='Ingrese el Name'
                 />
 
                 <input
                     id='datepicker'
                     type="date"
-                    value={filtroFecha || ''}
-                    onChange={(e) => setFiltroFecha(e.target.value)}
+                    value={filtroDate || ''}
+                    onChange={(e) => setFiltroDate(e.target.value)}
                 />
 
-                <select name="Estados" id="" onChange={(e) => setFiltroEstado(e.target.value)}>
+                <select name="States" id="" onChange={(e) => setFiltroState(e.target.value)}>
                     <option value="Por Empezar">Por Empezar</option>
                     <option value="En progreso">En progreso</option>
                     <option value="Cancelado">Cancelado</option>
@@ -85,10 +89,10 @@ const ProyectsList = ({ listaProyectos }) => {
                 {listaFiltrada.map((proyecto) => (
                     <div key={proyecto.id}>
                         <div className='info-proyecto'>
-                            <h1>{proyecto.titulo}</h1>
+                            <h1>{proyecto.name}</h1>
                             <div className='info-proyecto-upper'>
-                                <button>{proyecto.estado}</button>
-                                <h2>{proyecto.fechaVencimiento}</h2>
+                                <button>{proyecto.state}</button>
+                                <h2>{proyecto.dueDate}</h2>
                                 <span className="material-symbols-outlined">
                                     shield_person
                                 </span>
