@@ -30,7 +30,6 @@ const clearData = (data) => {
 
 //POST//
 const dataBuilder = (name, description, icon, members, dueDate) => {
-  console.log(dueDate)
   return {
     fields: {
       name: {
@@ -58,7 +57,6 @@ const dataBuilder = (name, description, icon, members, dueDate) => {
 };
 
 export async function postProject(name, description, icon,members,dueDate) {
-  console.log(dueDate)
   const dateID = Date.now();
   const data = dataBuilder(name, description, icon, members,dueDate);
   const targetUrl =
