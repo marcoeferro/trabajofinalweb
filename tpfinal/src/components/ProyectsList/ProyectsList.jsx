@@ -3,34 +3,12 @@ import './ProyectsList.scss';
 import { Modal } from '@mui/material';
 import CreateProject from '../create-project';
 
-const ProyectsList = () => {
-    const datos = [
-        {
-            id: 1,
-            titulo: "Proyecto de mentira 1",
-            estado: "En progreso",
-            fechaVencimiento: "2024-07-20",
-            avance: 50,
-        },
-        {
-            id: 2,
-            titulo: "Proyecto de mentira 2",
-            estado: "Completado",
-            fechaVencimiento: "2023-12-25",
-            avance: 100,
-        },
-        {
-            id: 3,
-            titulo: "Proyecto de mentira 3",
-            estado: "Cancelado",
-            fechaVencimiento: "2023-08-15",
-            avance: 20,
-        },
-    ];
+const ProyectsList = ({ listaProyectos }) => {
+
 
     //listas
-    const [lista, setLista] = useState(datos);
-    const [listaFiltrada, setListaFiltrada] = useState(datos);
+    const [lista, setLista] = useState(listaProyectos);
+    const [listaFiltrada, setListaFiltrada] = useState(listaProyectos);
 
     // Inicializa los filtros
     const [filtroTitulo, setfiltroTitulo] = useState('');
@@ -86,10 +64,6 @@ const ProyectsList = () => {
                     onChange={(e) => setfiltroTitulo(e.target.value)}
                     placeholder='Ingrese el Titulo'
                 />
-
-                {/* <span className="material-symbols-outlined">
-                    calendar_month
-                </span> */}
 
                 <input
                     id='datepicker'

@@ -8,8 +8,8 @@
     justify-content: center;
     background-color: #F8EDE9;
     border-radius: 0px 10px 10px 0px;
-    z-index: 2;
-    position: absolute;
+    z-index: 3;
+    // position: absolute;
 
     &.expanded {
         transform: translateX(-13vw);
