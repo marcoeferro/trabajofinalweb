@@ -67,8 +67,6 @@ export async function postProject(name, description, icon,members,dueDate) {
     body: JSON.stringify(data),
   };
   const response = await fetch(targetUrl, options)
-    .then((response) => response.json())
-    .then((data) => console.log(data));
 }
 
 export async function patchProject(name, description, icon, members,dueDate) {
@@ -82,8 +80,6 @@ export async function patchProject(name, description, icon, members,dueDate) {
     body: JSON.stringify(data),
   };
   let response = await fetch(targetUrl, options)
-    .then((response) => response.json())
-    .then((data) => console.log(data));
 }
 
 //DELETE
@@ -96,6 +92,4 @@ export async function deleteProject(targetId) {
     method: "DELETE",
   };
   let response = await fetch(targetUrl, options)
-    .then((response) => response.json())
-    .then((data) => console.log(data));
 }
