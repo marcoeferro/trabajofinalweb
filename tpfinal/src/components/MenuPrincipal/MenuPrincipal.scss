@@ -1,0 +1,27 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 430px;
+    top: 3%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: fixed;
+    background-color: #163E6A;
+    border-radius: 10px;
+    padding: 2px;
+    z-index: 1;
+}
+
+.titulo {
+    font-size: large;
+}
+
+.menu-lateral-icon {
+    cursor: pointer;
+}
+
+.settings-icon {
+    cursor: pointer;
+}

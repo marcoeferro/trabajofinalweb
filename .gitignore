@@ -1,2 +1,8 @@
 # Acciones/workflows
 .github/workflows/*
+node_modules
+tpfinal/node_modules
+node_modules/.package-lock.json
+node_modules/.package-lock.json
+node_modules/.package-lock.json
+node_modules/.package-lock.json
