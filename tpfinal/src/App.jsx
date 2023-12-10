@@ -1,35 +1,109 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import "./App.css";
+import SideMenu from "./components/SideMenu/SideMenu";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import ListProjects from "./components/ProjectComponents/ListProjects";
+import ProjectDetails from "./components/ProjectComponents/ProjectDetails";
+import ListEpics from "./components/EpicsComponentes/ListEpics";
+import EpicDetails from "./components/EpicsComponentes/EpicDetails";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const projects = [
+    {
+      id: 1,
+      name: "Proyecto 1",
+      description: "Descripción del Proyecto 1",
+      icon: "icon-1.png",
+      members: [101, 102, 103],
+      epics: [
+        {
+          id: "epic-a",
+          name: "Epic A",
+          description: "Descripción de Epic A",
+          icon: "icon-epic-a.png",
+        },
+        {
+          id: "epic-b",
+          name: "Epic B",
+          description: "Descripción de Epic B",
+          icon: "icon-epic-b.png",
+        },
+      ],
+    },
+    {
+      id: 2,
+      name: "Proyecto 2",
+      description: "Descripción del Proyecto 2",
+      icon: "icon-2.png",
+      members: [104, 105, 106],
+      epics: [
+        {
+          id: "epic-x",
+          name: "Epic X",
+          description: "Descripción de Epic X",
+          icon: "icon-epic-x.png",
+          userStories: [
+            {
+              id: "story-1",
+              title: "Historia 1",
+              description: "Descripción de Historia 1",
+            },
+            {
+              id: "story-2",
+              title: "Historia 2",
+              description: "Descripción de Historia 2",
+            },
+          ],
+        },
+        {
+          id: "epic-y",
+          name: "Epic Y",
+          description: "Descripción de Epic Y",
+          icon: "icon-epic-y.png",
+          userStories: [
+            {
+              id: "story-1",
+              title: "Historia 1",
+              description: "Descripción de Historia 1",
+            },
+            {
+              id: "story-2",
+              title: "Historia 2",
+              description: "Descripción de Historia 2",
+            },
+          ],
+        },
+      ],
+    },
+  ];
 
   return (
-    <>
+    <Router>
       <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <Routes>
+          <Route
+            path="/my-projects"
+            element={<ListProjects projects={projects} />}
+          />
+          <Route
+            path="/my-projects/:projectId"
+            exact
+            element={<ProjectDetails projects={projects} />}
+          />
+          {/* Nueva ruta para la lista de épicas */}
+          <Route
+            path="/my-projects/:projectId/epics"
+            element={<ListEpics projects={projects} />}
+          />
+          {/* Nueva ruta para los detalles de épicas */}
+          <Route
+            path="/my-projects/:projectId/epics/:epicId"
+            element={<EpicDetails projects={projects} />}
+          />
+        </Routes>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </Router>
+  );
 }
 
-export default App
+export default App;
