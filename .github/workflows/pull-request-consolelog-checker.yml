@@ -26,14 +26,5 @@ jobs:
       - name: Install ESLint
         run: npm install eslint
 
-      - name: Install ESLint react plugin
-        run: npm install eslint-plugin-react@latest --save-dev
-
-      - name: Install ESLint react-hooks plugin
-        run: npm install eslint-plugin-react-hooks@latest --save-dev
-
-      - name: Install ESLint react-refresh plugin
-        run: npm install eslint-plugin-react-refresh@latest --save-dev
-
       - name: Lint with ESLint
         run:  npx eslint . --ext .js --format=unix --no-error-on-unmatched-pattern
