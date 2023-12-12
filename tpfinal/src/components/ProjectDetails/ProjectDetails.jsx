@@ -1,6 +1,7 @@
 // src/components/ProjectComponents/ProjectDetails.js
 import React from "react";
 import { useParams, Link } from "react-router-dom";
+import './ProjectDetails.scss'
 
 const ProjectDetails = ({ projects }) => {
   const { projectId } = useParams();
@@ -13,21 +14,21 @@ const ProjectDetails = ({ projects }) => {
   return (
     <div>
       <h2>{project.name} - Detalles del Proyecto</h2>
-      <p>{project.description}</p>
+      <p className="project-detail-description">{project.description}</p>
       <h3>Epics:</h3>
-      <ul>
-      {project.epics ? (
+      <div>
+        {project.epics ? (
           project.epics.map((epic, index) => (
-            <li key={index}>
+            <div key={index}>
               <Link to={`/my-projects/${projectId}/epics/${epic.id}`}>
                 {epic.name}
               </Link>
-            </li>
+            </div>
           ))
         ) : (
           <li>No hay Epics definidas para este proyecto.</li>
         )}
-      </ul>
+      </div>
     </div>
   );
 };

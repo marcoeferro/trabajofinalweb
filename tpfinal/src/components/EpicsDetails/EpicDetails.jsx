@@ -6,10 +6,22 @@ import UserStories from '../UserStories/UserStories';
 const EpicDetails = ({ projects }) => {
   const { projectId, epicId } = useParams();
 
+  // Verifica si projects está cargado
+  if (!projects) {
+    return <p>Cargando proyectos...</p>;
+  }
+
   // Buscar la épica específica en todos los proyectos
   const selectedProject = projects.find(p => String(p.id) === projectId);
+
+  // Verifica si el proyecto está cargado
+  if (!selectedProject) {
+    return <p>Proyecto no encontrado</p>;
+  }
+
   const epic = selectedProject?.epics.find(e => e.id === epicId);
 
+  // Verifica si la épica está cargada
   if (!epic) {
     return <p>Épica no encontrada</p>;
   }

@@ -2,13 +2,14 @@ import { getEpicsByProjectId } from "@/utils/epicManager";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-const ListEpics = ({ projectId, projectName }) => {
-  const [epics, setEpics] = useState([]);
+// const ListEpics = ({ projectId, projectName }) => {
+//   const [epics, setEpics] = useState([]);
 
-  useEffect(() => { //obtiene el resultado de una promesa y lo guarda en epics
-    getEpicsByProjectId(projectId).then((data) => setEpics(data));
-  }, []);
+//   useEffect(() => { //obtiene el resultado de una promesa y lo guarda en epics
+//     getEpicsByProjectId(projectId).then((data) => setEpics(data));
+//   }, []);
 
+const Epicslist = ({ projects }) => {
   return (
     <div>
       <ul>
@@ -24,5 +25,4 @@ const ListEpics = ({ projectId, projectName }) => {
     </div>
   );
 };
-
-export default ListEpics;
+export default Epicslist;

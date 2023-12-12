@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import './ProyectsList.scss';
+import './ProjectsList.scss';
 import { Modal } from '@mui/material';
 import CreateProject from '../create-project';
-import { getProjects } from '@/utils/projectManager';
+import FilterAltIcon from '@mui/icons-material/FilterAlt';
+import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
+import { Link } from 'react-router-dom';
 
-const ProyectsList = ({ listaProyectos }) => {
-
+const ProjectsList = ({ listaProyectos }) => {
 
     //listas
     const [lista, setLista] = useState(listaProyectos);
     const [listaFiltrada, setListaFiltrada] = useState(listaProyectos);
 
     // Inicializa los filtros
+    const [filtrado, setFiltrado] = useState(false);
     const [filtroName, setfiltroName] = useState('');
     const [filtroDate, setFiltroDate] = useState(null);
     const [filtroState, setFiltroState] = useState('');
@@ -21,36 +23,31 @@ const ProyectsList = ({ listaProyectos }) => {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-
     //Funciones Filtro
     const filtrarLista = () => {
         if (!filtroName && !filtroDate && !filtroState) {
             limpiarFiltros()
         } else {
-            const nuevaListaFiltrada = lista.filter((proyecto) => (proyecto.name == filtroName || proyecto.dueDate == filtroDate || proyecto.state == filtroState))
+            const nuevaListaFiltrada = lista.filter((proyecto) => (proyecto.name == filtroName))
             setListaFiltrada(nuevaListaFiltrada)
         }
-
+        setFiltrado(!filtrado)
     };
+
+    useEffect(() => {
+        console.log(open)
+    }, [filtroName, filtroState, filtroDate])
 
     const limpiarFiltros = () => {
         setfiltroName('');
         setFiltroDate(null);
         setFiltroState('');
         setListaFiltrada(lista);
+        setFiltrado(!filtrado)
     };
-
-    //Renderizado para cambios de la lista
-    useEffect(() => {
-        getProjects().then((data) => setLista(data))
-    }, [listaFiltrada]);
-    useEffect(() => {
-        getProjects().then((data) => setLista(data))
-    }, [])
-
     return (
 
-        <div className='container'>
+        <div className='Projects-list-container'>
             <button onClick={handleOpen}>+</button>
             <Modal
                 open={open}
@@ -70,7 +67,7 @@ const ProyectsList = ({ listaProyectos }) => {
                     placeholder='Ingrese el Name'
                 />
 
-                <input
+                {/* <input
                     id='datepicker'
                     type="date"
                     value={filtroDate || ''}
@@ -82,18 +79,20 @@ const ProyectsList = ({ listaProyectos }) => {
                     <option value="En progreso">En progreso</option>
                     <option value="Cancelado">Cancelado</option>
                     <option value="Completado">Completado</option>
-                </select>
-                <button onClick={filtrarLista}>Filtrar</button>
-                <button onClick={limpiarFiltros}>Limpiar Filtros</button>
-            </div>
+                </select> */}
+                {!filtrado && <span onClick={filtrarLista}><FilterAltIcon /></span>}
+                {filtrado && <span onClick={limpiarFiltros}><FilterAltOffIcon /></span>}
+            </div >
             <div className='lista'>
                 {listaFiltrada.map((proyecto) => (
                     <div key={proyecto.id}>
                         <div className='info-proyecto'>
-                            <h1>{proyecto.name}</h1>
+                            <Link to={`/my-projects/${proyecto.id}`}>
+                                <h1>{proyecto.name}</h1>
+                            </Link>
                             <div className='info-proyecto-upper'>
-                                <button>{proyecto.state}</button>
-                                <h2>{proyecto.dueDate}</h2>
+                                <p>{proyecto.description}</p>
+                                <h2>{proyecto.icon}</h2>
                                 <span className="material-symbols-outlined">
                                     shield_person
                                 </span>
@@ -102,9 +101,9 @@ const ProyectsList = ({ listaProyectos }) => {
                     </div>
                 ))}
             </div>
-        </div>
+        </div >
 
     );
 };
 
-export default ProyectsList;
+export default ProjectsList;

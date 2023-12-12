@@ -2,11 +2,12 @@ input#\:r1\: {
     display: none;
 }
 
-.container {
+.Projects-list-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    position: relative;
     z-index: 1;
 }
 
@@ -38,10 +39,6 @@ input#\:r1\: {
 
 .info-proyecto {
     background-color: #424044;
-    max-width: 373px;
-    max-height: 114px;
-    width: 250px;
-    height: 114px;
     display: flex;
     flex-direction: column;
     gap: 10px;

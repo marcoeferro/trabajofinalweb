@@ -1,24 +1,27 @@
-import React, { useState } from 'react';
 import './SideMenu.scss';
 import profilePlaceholder from './../../assets/img/profileplaceholder.jpg';
-
-function SideMenu() {
-    const [menuExpanded, setMenuExpanded] = useState(false);
-
-    const handleMenuToggle = () => {
-        setMenuExpanded(!menuExpanded);
-    };
+import { Link } from 'react-router-dom';
+function SideMenu({ openSideMenu }) {
 
     return (
-        <div className={`menu-container ${menuExpanded ? 'expanded' : ''}`}>
+        <div className={`menu-container ${openSideMenu ? 'expanded' : ''}`}>
             <div className='menu-content'>
                 <div className="menu-header">
                     <p>SARAZA123</p>
                 </div>
                 <div className="menu-body">
-                    <button type="button" className="btn btn-primary">Home</button>
-                    <button type="button" className="btn btn-primary">My Projects</button>
-                    <button type="button" className="btn btn-primary">Stories</button>
+                    <Link to={"/"}>
+                        <button type="button" className="btn btn-primary">Home</button>
+
+                    </Link>
+                    <Link to={"/my-projects"}>
+                        <button type="button" className="btn btn-primary">My Projects</button>
+
+                    </Link>
+                    <Link to={"/my-stories"}>
+                        <button type="button" className="btn btn-primary">Stories</button>
+
+                    </Link>
                 </div>
                 <div className="menu-footer">
                     <img src={profilePlaceholder} alt="profile picture" className='footer-profile-picture' />
@@ -27,11 +30,6 @@ function SideMenu() {
                         <h6>louisejoyk@email.com</h6>
                     </div>
                 </div>
-            </div>
-            <div className='menu-burgermenu' onClick={handleMenuToggle}>
-                <span className="material-symbols-outlined">
-                    menu
-                </span>
             </div>
         </div>
     );

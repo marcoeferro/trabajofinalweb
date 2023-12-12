@@ -1,14 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import MenuIcon from '@mui/icons-material/Menu';
+import React, { useState } from 'react';
 import SettingsIcon from '@mui/icons-material/Settings';
-import './SettingsComponent.scss';
-import SideMenu from '../SideMenu/SideMenu';
+import './Settings.scss';
 import profilePlaceholder from './../../assets/img/profileplaceholder.jpg';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import LogoutIcon from '@mui/icons-material/Logout';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightMode from '@mui/icons-material/LightMode';
-const SettingsComponent = () => {
+import { Link } from 'react-router-dom';
+const Settings = () => {
 
     const [mode, setMode] = useState(false);
 
@@ -26,8 +25,12 @@ const SettingsComponent = () => {
                 <div className='settings-body-header'>
                     <div className='settings-body-back'>
                         <div className='settings-body-back-header'>
-                            <ArrowBackIcon className='settings-icon' />
-                            <h4 className='settings-icon'>home</h4>
+                            <Link className='settings-link' to={`/`}>
+                                <ArrowBackIcon className='settings-icon' />
+                            </Link>
+                            <Link className='settings-link' to={`/`}>
+                                <h4 className='settings-icon'>HOME</h4>
+                            </Link>
                         </div>
                         <h2>Settings</h2>
                     </div>
@@ -53,4 +56,4 @@ const SettingsComponent = () => {
     );
 };
 
-export default SettingsComponent;
+export default Settings;

@@ -10,7 +10,7 @@ export async function getProjects() {
   data = clearData(data.documents);
   return data;
 }
-
+export default getProjects;
 
 const clearData = (data) => {
   let filteredData = [];
@@ -56,9 +56,9 @@ const dataBuilder = (name, description, icon, members, dueDate) => {
   };
 };
 
-export async function postProject(name, description, icon,members,dueDate) {
+export async function postProject(name, description, icon, members, dueDate) {
   const dateID = Date.now();
-  const data = dataBuilder(name, description, icon, members,dueDate);
+  const data = dataBuilder(name, description, icon, members, dueDate);
   const targetUrl =
     "https://firestore.googleapis.com/v1/projects/p-manager-1a182/databases/(default)/documents/projects/?documentId=" +
     dateID.toString();
@@ -69,11 +69,11 @@ export async function postProject(name, description, icon,members,dueDate) {
   const response = await fetch(targetUrl, options)
 }
 
-export async function patchProject(name, description, icon, members,dueDate,id) {
+export async function patchProject(name, description, icon, members, dueDate, id) {
   const targetUrl =
     "https://firestore.googleapis.com/v1/projects/p-manager-1a182/databases/(default)/documents/projects/" +
     id.toString(); //url objetivo, object.id es la id del documento a reemplazar
-  const data = dataBuilder(name, description, icon, members,dueDate);
+  const data = dataBuilder(name, description, icon, members, dueDate);
   const options = {
     //opciones de funcion fetch.
     method: "PATCH",
