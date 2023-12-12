@@ -9,6 +9,7 @@ import MenuPrincipal from "./components/MenuPrincipal/MenuPrincipal";
 import ProjectsList from "./components/ProjectsList/ProjectsList";
 import UserStories from "./components/UserStories/UserStories";
 import Settings from "./components/Settings/Settings";
+import getProjects from "./utils/projectManager";
 
 function App() {
   const [projects, setProjects] = useState([]);
@@ -68,15 +69,6 @@ function App() {
             path="/my-projects/:projectId"
             exact
             element={<ProjectDetails projects={projects} />}
-          />
-          <Route
-            path="/test"
-            exact
-            element={
-              <EditEpic
-                epic={epic}
-              />
-            }
           />
           {/* Nueva ruta para la lista de épicas */}
           <Route

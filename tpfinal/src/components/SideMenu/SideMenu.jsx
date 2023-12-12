@@ -1,6 +1,7 @@
 import './SideMenu.scss';
 import profilePlaceholder from './../../assets/img/profileplaceholder.jpg';
 import { Link } from 'react-router-dom';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 function SideMenu({ openSideMenu }) {
 
     return (
@@ -31,6 +32,7 @@ function SideMenu({ openSideMenu }) {
                     </div>
                 </div>
             </div>
+            <ArrowBackIosIcon />
         </div>
     );
 }

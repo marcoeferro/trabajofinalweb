@@ -23,8 +23,9 @@ input#\:r1\: {
 .info-proyecto-upper {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    width: 231px;
 
     button {
         max-width: 93px;

@@ -1,7 +1,7 @@
 .create-project-container {
     height: 100vh;
     width: 100vw;
-    background-color: grey;
+    background-color: transparent;
     font-size: 1.5rem;
     display: flex;
     align-items: center;
@@ -101,12 +101,15 @@
         }
     }
 }
-.date-picker-container{
-    margin:0;
-    p{
+
+.date-picker-container {
+    margin: 0;
+
+    p {
         font-size: 1rem;
-        padding:0;
+        padding: 0;
         margin: 0 10px 0 0;
     }
+
     padding: 0px 10px;
 }
