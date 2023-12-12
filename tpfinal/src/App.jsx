@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./App.css";
+import "./App.scss";
 import SideMenu from "./components/SideMenu/SideMenu";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import ListProjects from "./components/ProjectComponents/ListProjects";
