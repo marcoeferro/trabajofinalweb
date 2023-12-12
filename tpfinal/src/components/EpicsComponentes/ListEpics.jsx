@@ -1,24 +1,24 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import { getEpicsByProjectId } from "@/utils/epicManager";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
-const ListEpics = ({ projects }) => {
+const ListEpics = ({ projectId, projectName }) => {
+  const [epics, setEpics] = useState([]);
+
+  useEffect(() => { //obtiene el resultado de una promesa y lo guarda en epics
+    getEpicsByProjectId(projectId).then((data) => setEpics(data));
+  }, []);
+
   return (
     <div>
-      <h2>Lista de Épicas</h2>
       <ul>
-        {projects.map((project) => (
-          <div key={project.id}>
-            <h3>{project.name}</h3>
-            <ul>
-              {project.epics.map((epic) => (
-                <li key={epic.id}>
-                  <Link to={`/my-projects/${project.id}/epics/${epic.id}`}>
-                    {epic.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+        <h3>{projectName}</h3>
+        {epics.map((epic) => (
+          <li key={epic.id}>
+            <Link to={`/my-projects/${projectId}/epics/${epic.id}`}>
+              {epic.name}
+            </Link>
+          </li>
         ))}
       </ul>
     </div>

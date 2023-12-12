@@ -1,0 +1,105 @@
+.background {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .bg-placeholder{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: -1;
+    background-image: url(https://ae01.alicdn.com/kf/HTB1cmIeh0zJ8KJjSspkq6zF7VXa6/Photography-Backdrops-digital-printed-vinyl-photo-background-Natual-Sence-waterfall-studio-photoshoot-backdrop-XT-3577.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    filter: blur(10px);
+}
+}
+.editor-container {
+  background-color: rgba(white, 0.9);
+  width: 85%;
+  box-sizing: border-box;
+  padding: 10px 10px;
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 10px;
+  justify-content: space-between;
+  h1 {
+    font-size: 2rem;
+    margin: 0;
+  }
+
+  .text-edit {
+    box-sizing: border-box;
+    border: solid #7a5cfa 2px;
+    border-radius: 0.5rem;
+    width: 85%;
+    background-color: #424044;
+    font-family: sans-serif;
+    text-align: center;
+    color: white;
+    font-size: 1rem;
+    &::placeholder {
+      color: #f8ede9;
+    }
+    &.name {
+      height: 40px;
+    }
+    &.description {
+      height: 150px;
+      vertical-align: middle;
+    }
+  }
+  .edit-icon {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    p {
+      margin: 0;
+      font-size: 1rem;
+      width: 100%;
+      text-align: center;
+    }
+    .icon {
+      font-size: 1.5rem;
+      background-color: rgba(#424044, 0);
+      border: 2px solid #7a5cfa;
+      width: 50px;
+      text-align: center;
+      padding: 0;
+      &:focus {
+        background-color: #7a5cfa;
+        border: 2px solid #7a5cfa;
+        outline: none;
+      }
+    }
+  }
+  .buttons-container {
+    width: 85%;
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 5px;
+    .submit-button {
+      border: none;
+      border-radius: 10px;
+      background-color: #ff6b71;
+      width: 45%;
+      height: 2.5rem;
+      line-height: 100%;
+      padding: 0px;
+    }
+    .back-button {
+      border: none;
+      border-radius: 10px;
+      background-color: #7a5cfa;
+      width: 45%;
+      height: 2.5rem;
+      line-height: 100%;
+      padding: 0px;
+    }
+  }
+}

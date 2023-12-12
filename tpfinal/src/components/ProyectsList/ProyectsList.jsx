@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './ProyectsList.scss';
 import { Modal } from '@mui/material';
 import CreateProject from '../create-project';
+import { getProjects } from '@/utils/projectManager';
 
 const ProyectsList = ({ listaProyectos }) => {
 
