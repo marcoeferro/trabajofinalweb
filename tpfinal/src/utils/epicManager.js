@@ -8,6 +8,19 @@ export async function getEpics() {
     data = clearData(data.documents);
     return data;
   }
+
+export async function getEpicsByProjectId(TargetId){
+  const response = await fetch(
+    "https://firestore.googleapis.com/v1/projects/p-manager-1a182/databases/(default)/documents/epics/",
+    { method: "GET" }
+  );
+  let data = await response.json();
+  data = clearData(data.documents);
+  console.log(data);
+  const filteredData = data.filter((epic) => epic.projectId == TargetId);
+  console.log(filteredData)
+  return filteredData;
+}
   
   const clearData = (data) => {
     let filteredData = [];
@@ -58,10 +71,10 @@ export async function getEpics() {
       .then((data) => console.log(data));
   }
   
-  export async function patchEpic(name, description, icon, projectId) {
+  export async function patchEpic(name, description, icon, projectId,id) {
     const targetUrl =
       "https://firestore.googleapis.com/v1/projects/p-manager-1a182/databases/(default)/documents/epics/" +
-      object.id.toString(); //url objetivo, object.id es la id del documento a reemplazar
+      id.toString(); //url objetivo, object.id es la id del documento a reemplazar
     const data = dataBuilder(name, description, icon, projectId);
     const options = {
       //opciones de funcion fetch.

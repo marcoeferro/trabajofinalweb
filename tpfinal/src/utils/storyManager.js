@@ -95,10 +95,10 @@ export async function postStory(name, description, icon, epicId,ownerId, state, 
     .then((data) => console.log(data));
 }
 
-export async function patchStory(name, description, icon, epicId,ownerId, state, points, assignedTo,due,created,started,finished) {
+export async function patchStory(name, description, icon, epicId,ownerId, state, points, assignedTo,due,created,started,finished,id) {
   const targetUrl =
     "https://firestore.googleapis.com/v1/projects/p-manager-1a182/databases/(default)/documents/stories/" +
-    object.id.toString(); //url objetivo, object.id es la id del documento a reemplazar
+    id.toString(); //url objetivo, object.id es la id del documento a reemplazar
   const data = dataBuilder(name, description, icon, epicId,ownerId, state, points, assignedTo,due,created,started,finished);
   const options = {
     //opciones de funcion fetch.

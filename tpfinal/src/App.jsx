@@ -1,81 +1,29 @@
 import { useState } from "react";
-import "./App.scss";
+import "./App.css";
 import SideMenu from "./components/SideMenu/SideMenu";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import ListProjects from "./components/ProjectComponents/ListProjects";
 import ProjectDetails from "./components/ProjectComponents/ProjectDetails";
 import ListEpics from "./components/EpicsComponentes/ListEpics";
 import EpicDetails from "./components/EpicsComponentes/EpicDetails";
+import ProyectsList from "./components/ProyectsList/ProyectsList";
+import { getProjects } from "./utils/projectManager";
+import CreateEpic from "./components/create-epic";
+import EditEpic from "./components/edit-epic";
 
 function App() {
-  const projects = [
-    {
-      id: 1,
-      name: "Proyecto 1",
-      description: "Descripción del Proyecto 1",
-      icon: "icon-1.png",
-      members: [101, 102, 103],
-      epics: [
-        {
-          id: "epic-a",
-          name: "Epic A",
-          description: "Descripción de Epic A",
-          icon: "icon-epic-a.png",
-        },
-        {
-          id: "epic-b",
-          name: "Epic B",
-          description: "Descripción de Epic B",
-          icon: "icon-epic-b.png",
-        },
-      ],
-    },
-    {
-      id: 2,
-      name: "Proyecto 2",
-      description: "Descripción del Proyecto 2",
-      icon: "icon-2.png",
-      members: [104, 105, 106],
-      epics: [
-        {
-          id: "epic-x",
-          name: "Epic X",
-          description: "Descripción de Epic X",
-          icon: "icon-epic-x.png",
-          userStories: [
-            {
-              id: "story-1",
-              title: "Historia 1",
-              description: "Descripción de Historia 1",
-            },
-            {
-              id: "story-2",
-              title: "Historia 2",
-              description: "Descripción de Historia 2",
-            },
-          ],
-        },
-        {
-          id: "epic-y",
-          name: "Epic Y",
-          description: "Descripción de Epic Y",
-          icon: "icon-epic-y.png",
-          userStories: [
-            {
-              id: "story-1",
-              title: "Historia 1",
-              description: "Descripción de Historia 1",
-            },
-            {
-              id: "story-2",
-              title: "Historia 2",
-              description: "Descripción de Historia 2",
-            },
-          ],
-        },
-      ],
-    },
-  ];
+  const [projects, setProjects] = useState([]);
+  useEffect(() => {
+    getProjects().then((data) => setProjects(data));
+  }, []);
+
+  const epic = {
+    name: "test 3",
+    description: "d",
+    icon: "",
+    id: 1702314291688,
+    projectId: 1701992079608,
+  };
 
   return (
     <Router>
@@ -83,12 +31,21 @@ function App() {
         <Routes>
           <Route
             path="/my-projects"
-            element={<ListProjects projects={projects} />}
+            element={<ProyectsList listaProyectos={projects} />}
           />
           <Route
             path="/my-projects/:projectId"
             exact
             element={<ProjectDetails projects={projects} />}
+          />
+          <Route
+            path="/test"
+            exact
+            element={
+              <EditEpic
+                epic={epic}
+              />
+            }
           />
           {/* Nueva ruta para la lista de épicas */}
           <Route
@@ -104,7 +61,6 @@ function App() {
       </div>
     </Router>
   );
-
 }
 
 export default App;
