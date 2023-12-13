@@ -17,12 +17,10 @@ input#\:r1\: {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    flex-wrap: wrap;
-    width: 800px;
     gap: 10px;
     margin: 10px;
     height: 450px;
-    overflow: hidden;
+    overflow: auto;
 }
 
 .info-proyecto-upper {
