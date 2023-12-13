@@ -1,15 +1,15 @@
 import { React } from "react";
-import './ProjectCard.scss'
+import './TaskCard.scss'
 import { Card, CardActionArea, CardContent, Box, Divider, Typography } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
-import { deleteProject } from "@/utils/projectManager";
-const ProjectCard = ({ project }) => {
+import { deleteTask } from "@/utils/taskManager";
+const TaskCard = ({ task }) => {
     const handleClose = (id) => {
-        deleteProject(id)
+        deleteTask(id)
     }
-    if (!project) {
+    if (!task) {
         return (<Typography gutterBottom variant="h5" component="div">
-            No se encontro project
+            No se encontro la task
         </Typography>)
     } else {
         return (
@@ -18,25 +18,26 @@ const ProjectCard = ({ project }) => {
                     <CardContent>
                         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1 }}>
                             <Typography gutterBottom variant="h5" component="div">
-                                {project.name}
+                                {task.name}
                             </Typography>
-                            {project.icon && <Box component="div">{project.icon}</Box>}
-                            <DeleteIcon onClick={() => { handleClose(project.id) }} />
+                            {task.icon && <Box component="div">{task.icon}</Box>}
+                            <DeleteIcon onClick={() => { handleClose(task.id) }} />
                         </Box>
                         <Divider />
                         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 1 }}>
-                            {project.description ?
+                            {task.description ?
                                 <Typography variant="body2" color="text.secondary">
-                                    {project.description}
-                                </Typography> : "Esta project no tiene descripcion"}
+                                    {task.description}
+                                </Typography> : "Esta task no tiene descripcion"}
                             <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 1 }}>
-                                {project.state &&
+
+                                {task.dueDate &&
                                     <Typography variant="body2" color="text.secondary">
-                                        {project.state}
+                                        {task.dueDate}
                                     </Typography>}
-                                {project.dueDate &&
+                                {task.createdDate &&
                                     <Typography variant="body2" color="text.secondary">
-                                        {project.dueDate}
+                                        {task.createdDate}
                                     </Typography>}
                             </Box>
                         </Box>
@@ -48,4 +49,4 @@ const ProjectCard = ({ project }) => {
 
 };
 
-export default ProjectCard;
+export default TaskCard;
