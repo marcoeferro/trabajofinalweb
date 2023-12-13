@@ -6,8 +6,7 @@ import { deleteProject } from "@/utils/projectManager";
 const ProjectCard = ({ projects }) => {
     const [Project, setProject] = useState(null);
     const handleClose = (id) => {
-        console.log(id)
-        // deleteProject(id)
+        deleteProject(id)
     }
     useEffect(() => {
         if (projects) {
