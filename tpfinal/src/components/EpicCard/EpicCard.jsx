@@ -1,11 +1,16 @@
 import React from "react";
 import './EpicCard.scss'
 import { Card, CardActionArea, CardContent, Box, Divider, Typography } from "@mui/material";
+import DeleteIcon from '@mui/icons-material/Delete';
+import { deleteEpic } from "@/utils/epicManager";
 
-const EpicCard = ({ Epica }) => {
-    if (!Epica) {
+const EpicCard = ({ epica }) => {
+    const handleClose = (id) => {
+        deleteEpic(id)
+    }
+    if (!epica) {
         return (<Typography gutterBottom variant="h5" component="div">
-            No se encontro Epica
+            No se encontro epica
         </Typography>)
     } else {
         return (
@@ -14,14 +19,15 @@ const EpicCard = ({ Epica }) => {
                     <CardContent>
                         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1 }}>
                             <Typography gutterBottom variant="h5" component="div">
-                                {Epica.name}
+                                {epica.name}
                             </Typography>
-                            {Epica.icon && <Box component="div">{Epica.icon}</Box>}
+                            {epica.icon && <Box component="div">{epica.icon}</Box>}
+                            <DeleteIcon onClick={() => { handleClose(epica.id) }} />
                         </Box>
                         <Divider />
-                        {Epica.description ?
+                        {epica.description ?
                             <Typography variant="body2" color="text.secondary">
-                                {Epica.description}
+                                {epica.description}
                             </Typography> : "Esta epica no tiene descripcion"}
                     </CardContent>
                 </CardActionArea>
