@@ -1,7 +1,7 @@
 // src/components/List-Epics/EpicDetails.js
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import UserStories from '../UserStories/UserStories';
+import UserStoriesList from '../UserStoriesList/UserStoriesList';
 
 const EpicDetails = ({ projects }) => {
   const { projectId, epicId } = useParams();
@@ -32,10 +32,10 @@ const EpicDetails = ({ projects }) => {
       <p>{epic.description}</p>
       <img src={epic.icon} alt="Icono de la Épica" />
 
-      {/* Listado de Historias de Usuario utilizando UserStories */}
+      {/* Listado de Historias de Usuario utilizando UserStoriesList */}
       <h3>Historias de Usuario:</h3>
       {epic.userStories && epic.userStories.length > 0 ? (
-        <UserStories stories={epic.userStories} />
+        <UserStoriesList stories={epic.userStories} />
       ) : (
         <p>No hay historias de usuario definidas para esta épica.</p>
       )}

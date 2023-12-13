@@ -1,6 +1,6 @@
 import React from 'react';
 
-const UserStories = ({ stories }) => {
+const UserStoriesList = ({ stories }) => {
   return (
     <ul>
       {stories ? stories.map((story) => (
@@ -13,4 +13,4 @@ const UserStories = ({ stories }) => {
   );
 };
 
-export default UserStories;
+export default UserStoriesList;
