@@ -8,6 +8,7 @@ input#\:r1\: {
     align-items: center;
     justify-content: center;
     position: relative;
+    top: 80px;
     z-index: 1;
 }
 
@@ -16,8 +17,12 @@ input#\:r1\: {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    flex-wrap: wrap;
+    width: 800px;
     gap: 10px;
     margin: 10px;
+    height: 450px;
+    overflow: hidden;
 }
 
 .info-proyecto-upper {

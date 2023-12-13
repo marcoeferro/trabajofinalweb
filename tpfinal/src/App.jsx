@@ -3,44 +3,32 @@ import "./App.scss";
 import SideMenu from "./components/SideMenu/SideMenu";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import ProjectDetails from "./components/ProjectDetails/ProjectDetails";
-import ListEpics from "./components/EpicsList/EpicsList";
+import EpicsList from "./components/EpicsList/EpicsList";
 import EpicDetails from "./components/EpicsDetails/EpicDetails";
 import MenuPrincipal from "./components/MenuPrincipal/MenuPrincipal";
 import ProjectsList from "./components/ProjectsList/ProjectsList";
 import UserStories from "./components/UserStories/UserStories";
 import Settings from "./components/Settings/Settings";
 import getProjects from "./utils/projectManager";
-
+import Epic from './components/Epic/Epic';
 function App() {
-  const [projects, setProjects] = useState([]);
+
+  const [projects, setProjects] = useState(null)
   useEffect(() => {
-    getProjects().then((data) => setProjects(data));
-  }, []);
+    // Puedes llamar a getProjects aquí o en cualquier otro lugar del componente
+    const fetchData = async () => {
+      try {
+        const projectsData = await getProjects();
+        setProjects(projectsData);
+        // console.log(projectsData);
+        // Haz algo con los proyectos recuperados, por ejemplo, establecerlos en el estado del componente.
+      } catch (error) {
+        console.error('Error al obtener proyectos:', error);
+      }
+    };
 
-  const epic = {
-    name: "test 3",
-    description: "d",
-    icon: "",
-    id: 1702314291688,
-    projectId: 1701992079608,
-  };
-
-  // const [projects, setProjects] = useState(null)
-  // useEffect(() => {
-  //   // Puedes llamar a getProjects aquí o en cualquier otro lugar del componente
-  //   const fetchData = async () => {
-  //     try {
-  //       const projectsData = await getProjects();
-  //       setProjects(projectsData);
-  //       console.log(projectsData);
-  //       // Haz algo con los proyectos recuperados, por ejemplo, establecerlos en el estado del componente.
-  //     } catch (error) {
-  //       console.error('Error al obtener proyectos:', error);
-  //     }
-  //   };
-
-  //   fetchData();
-  //}, []); // El segundo argumento [] asegura que useEffect se ejecute solo una vez al montar el componente.
+    fetchData();
+  }, []); // El segundo argumento [] asegura que useEffect se ejecute solo una vez al montar el componente.
   const [openSideMenu, setOpenSideMenu] = useState(false)
   const handleOpenSideMenu = () => setOpenSideMenu(!openSideMenu)
   return (
@@ -73,7 +61,7 @@ function App() {
           {/* Nueva ruta para la lista de épicas */}
           <Route
             path="/my-projects/:projectId/epics"
-            element={<ListEpics projects={projects} />}
+            element={<EpicsList projects={projects} />}
           />
           {/* Nueva ruta para los detalles de épicas */}
           <Route

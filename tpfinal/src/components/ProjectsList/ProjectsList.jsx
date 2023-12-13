@@ -23,6 +23,12 @@ const ProjectsList = ({ listaProyectos }) => {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
+    //Inicializador de estados
+    useEffect(() => {
+        setLista(listaProyectos);
+        setListaFiltrada(listaProyectos);
+    }, [listaProyectos]);
+
     //Funciones Filtro
     const filtrarLista = () => {
         if (!filtroName && !filtroDate && !filtroState) {
@@ -37,6 +43,8 @@ const ProjectsList = ({ listaProyectos }) => {
     useEffect(() => {
         console.log(open)
     }, [filtroName, filtroState, filtroDate])
+
+
 
     const limpiarFiltros = () => {
         setfiltroName('');
@@ -84,7 +92,7 @@ const ProjectsList = ({ listaProyectos }) => {
                 {filtrado && <span onClick={limpiarFiltros}><FilterAltOffIcon /></span>}
             </div >
             <div className='lista'>
-                {listaFiltrada.map((proyecto) => (
+                {listaFiltrada && listaFiltrada.map((proyecto) => (
                     <div key={proyecto.id}>
                         <div className='info-proyecto'>
                             <Link to={`/my-projects/${proyecto.id}`}>
