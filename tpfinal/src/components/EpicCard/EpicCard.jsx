@@ -1,8 +1,8 @@
 import React from "react";
-import './Epic.scss'
+import './EpicCard.scss'
 import { Card, CardActionArea, CardContent, Box, Divider, Typography } from "@mui/material";
 
-const Epic = ({ Epica }) => {
+const EpicCard = ({ Epica }) => {
     if (!Epica) {
         return (<Typography gutterBottom variant="h5" component="div">
             No se encontro Epica
@@ -31,4 +31,4 @@ const Epic = ({ Epica }) => {
 
 };
 
-export default Epic;
+export default EpicCard;

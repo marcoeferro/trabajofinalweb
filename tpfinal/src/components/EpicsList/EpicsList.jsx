@@ -1,7 +1,7 @@
 import { getEpicsByProjectId } from "@/utils/epicManager";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Epic from "../Epic/Epic";
+import Epic from "../EpicCard/EpicCard";
 
 
 const Epicslist = ({ projects }) => {

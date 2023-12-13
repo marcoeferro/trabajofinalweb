@@ -10,7 +10,8 @@ import ProjectsList from "./components/ProjectsList/ProjectsList";
 import UserStories from "./components/UserStories/UserStories";
 import Settings from "./components/Settings/Settings";
 import getProjects from "./utils/projectManager";
-import Epic from './components/Epic/Epic';
+import Epic from './components/EpicCard/EpicCard';
+import ProjectCard from './components/ProjectCard/ProjectCard'
 function App() {
 
   const [projects, setProjects] = useState(null)
@@ -72,6 +73,11 @@ function App() {
           <Route
             path="/my-projects/:projectId/epics/:epicId/:storyId"
             element={<h1>LISTADO DE TAREAS</h1>}
+          />
+          {/* Nueva ruta para los detalles de historias */}
+          <Route
+            path="/test"
+            element={<ProjectCard projects={projects} />}
           />
         </Routes>
       </div>
