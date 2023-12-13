@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import './Home.scss';
 import { Modal, Button, Box } from '@mui/material';
 import CreateProject from '../create-project';
