@@ -7,11 +7,10 @@ import EpicsList from "./components/EpicsList/EpicsList";
 import EpicDetails from "./components/EpicsDetails/EpicDetails";
 import MenuPrincipal from "./components/MenuPrincipal/MenuPrincipal";
 import ProjectsList from "./components/ProjectsList/ProjectsList";
-import UserStories from "./components/UserStories/UserStories";
+import UserStories from "./components/UserStoriesList/UserStoriesList";
 import Settings from "./components/Settings/Settings";
 import getProjects from "./utils/projectManager";
-import Epic from './components/EpicCard/EpicCard';
-import ProjectCard from './components/ProjectCard/ProjectCard'
+import Home from './components/Home/Home'
 function App() {
 
   const [projects, setProjects] = useState(null)
@@ -32,6 +31,7 @@ function App() {
   }, []); // El segundo argumento [] asegura que useEffect se ejecute solo una vez al montar el componente.
   const [openSideMenu, setOpenSideMenu] = useState(false)
   const handleOpenSideMenu = () => setOpenSideMenu(!openSideMenu)
+
   return (
     <Router>
       <MenuPrincipal handleOpenSideMenu={handleOpenSideMenu} />
@@ -40,7 +40,7 @@ function App() {
         <Routes>
           <Route
             path="/"
-            element={<div>HOME</div>}
+            element={<Home listaProyectos={projects} />}
           />
           <Route
             path="/my-stories"
@@ -73,11 +73,6 @@ function App() {
           <Route
             path="/my-projects/:projectId/epics/:epicId/:storyId"
             element={<h1>LISTADO DE TAREAS</h1>}
-          />
-          {/* Nueva ruta para los detalles de historias */}
-          <Route
-            path="/test"
-            element={<ProjectCard projects={projects} />}
           />
         </Routes>
       </div>

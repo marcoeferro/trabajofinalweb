@@ -12,7 +12,7 @@ const Home = ({ listaProyectos }) => {
     const handleClose = () => setOpen(false);
 
     return (
-        <Box className='Projects-list-container'>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
             <Button variant='outlined' onClick={handleOpen}>+</Button>
             <Modal
                 open={open}
@@ -24,7 +24,7 @@ const Home = ({ listaProyectos }) => {
                     <CreateProject onClose={handleClose} />
                 </Box>
             </Modal>
-            <Box className='lista'>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: '10px', maxHeight: '800px', overflow: 'auto' }}>
                 {listaProyectos && listaProyectos.map((proyecto) => (
                     <Box key={proyecto.id}>
                         <Link to={`/my-projects/${proyecto.id}`}>
