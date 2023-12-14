@@ -1,7 +1,6 @@
 import { getEpicsByProjectId } from "@/utils/epicManager";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import Epic from "../EpicCard/EpicCard";
+import EpicCard from "../EpicCard/EpicCard";
 
 
 const Epicslist = ({ projects }) => {
@@ -22,9 +21,7 @@ const Epicslist = ({ projects }) => {
       <div>
         <h3>SARAZA</h3>
         {epics.map((epic) => (
-          <Link to={`/my-projects/${projects.id}/epics/${epic.id}`}>
-            <Epic Epica={epic} />
-          </Link>
+          <EpicCard Epica={epic} />
         ))}
       </div>
     );
