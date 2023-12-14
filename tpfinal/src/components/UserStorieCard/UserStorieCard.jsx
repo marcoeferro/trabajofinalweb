@@ -4,12 +4,14 @@ import { Card, CardActionArea, CardContent, Box, Divider, Typography } from "@mu
 import DeleteIcon from '@mui/icons-material/Delete';
 import { deleteStory } from "@/utils/storyManager";
 import ResponsiveDialog from "../ResponsiveDialog/ResponsiveDialog";
+import { Link, useParams } from "react-router-dom";
 
 const UserStorieCard = ({ storie }) => {
     const [open, setOpen] = useState(false)
     const handleOpen = () => {
         setOpen(!open)
     }
+    const { projectId, epicId } = useParams();
     if (!storie) {
         return (<Typography gutterBottom variant="h5" component="div">
             No se encontro la storie
@@ -21,7 +23,9 @@ const UserStorieCard = ({ storie }) => {
                     <CardContent>
                         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1 }}>
                             <Typography gutterBottom variant="h5" component="div">
-                                {storie.name}
+                                <Link to={`/my-projects/${projectId}/epics/${epicId}/${storie.id}`}>
+                                    {storie.name}
+                                </Link>
                             </Typography>
                             {storie.icon && <Box component="div">{storie.icon}</Box>}
                             <DeleteIcon onClick={handleOpen} />
@@ -59,8 +63,6 @@ const UserStorieCard = ({ storie }) => {
                                         </Typography>}
                                 </Box>
                             </Box>
-
-
                         </Box>
                     </CardContent>
                 </CardActionArea>
