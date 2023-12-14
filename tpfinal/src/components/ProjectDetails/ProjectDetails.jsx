@@ -1,11 +1,17 @@
 // src/components/ProjectComponents/ProjectDetails.js
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import './ProjectDetails.scss'
+import { getEpicsByProjectId } from "@/utils/epicManager";
 
 const ProjectDetails = ({ projects }) => {
   const { projectId } = useParams();
+  const [epics,setEpics] = useState([]);
+  
 
+  useEffect(()=>{
+    getEpicsByProjectId(projectId).then((data)=>setEpics(data));
+  },[])
 
   if (!projects) {
     return <p>Proyecto no encontrado</p>;
@@ -18,8 +24,8 @@ const ProjectDetails = ({ projects }) => {
         <p className="project-detail-description">{project.description}</p>
         <h3>Epics:</h3>
         <div>
-          {project.epics ? (
-            project.epics.map((epic, index) => (
+          {epics ? (
+            epics.map((epic, index) => (
               <div key={index}>
                 <Link to={`/my-projects/${projectId}/epics/${epic.id}`}>
                   {epic.name}
