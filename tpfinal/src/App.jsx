@@ -35,7 +35,7 @@ function App() {
   return (
     <Router>
       <MenuPrincipal handleOpenSideMenu={handleOpenSideMenu} />
-      <SideMenu openSideMenu={openSideMenu} />
+      <SideMenu openSideMenu={openSideMenu} handleOpenSideMenu={handleOpenSideMenu} />
       <div>
         <Routes>
           <Route
@@ -72,6 +72,11 @@ function App() {
           {/* Nueva ruta para los detalles de historias */}
           <Route
             path="/my-projects/:projectId/epics/:epicId/:storyId"
+            element={<h1>LISTADO DE TAREAS</h1>}
+          />
+          {/* Nueva ruta para los detalles de historias */}
+          <Route
+            path="/test"
             element={<h1>LISTADO DE TAREAS</h1>}
           />
         </Routes>

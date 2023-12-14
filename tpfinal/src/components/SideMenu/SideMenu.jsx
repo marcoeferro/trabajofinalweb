@@ -1,40 +1,75 @@
-import './SideMenu.scss';
-import profilePlaceholder from './../../assets/img/profileplaceholder.jpg';
+import * as React from 'react';
+import Drawer from '@mui/material/Drawer';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemText from '@mui/material/ListItemText';
+import Divider from '@mui/material/Divider';
 import { Link } from 'react-router-dom';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-function SideMenu({ openSideMenu }) {
+import Avatar from '@mui/material/Avatar';
+import Box from '@mui/material/Box';
+import profilePlaceholder from './../../assets/img/profileplaceholder.jpg'
+
+export default function TemporaryDrawer({ openSideMenu, handleOpenSideMenu }) {
+    const toggleDrawer = (open) => (event) => {
+        if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+            console.log("NASHEI")
+            return;
+        }
+
+        handleOpenSideMenu(open);
+    };
 
     return (
-        <div className={`menu-container ${openSideMenu ? 'expanded' : ''}`}>
-            <div className='menu-content'>
-                <div className="menu-header">
-                    <p>SARAZA123</p>
-                </div>
-                <div className="menu-body">
-                    <Link to={"/"}>
-                        <button type="button" className="btn btn-primary">Home</button>
-
-                    </Link>
-                    <Link to={"/my-projects"}>
-                        <button type="button" className="btn btn-primary">My Projects</button>
-
-                    </Link>
-                    <Link to={"/my-stories"}>
-                        <button type="button" className="btn btn-primary">Stories</button>
-
-                    </Link>
-                </div>
-                <div className="menu-footer">
-                    <img src={profilePlaceholder} alt="profile picture" className='footer-profile-picture' />
-                    <div className="footer-text">
-                        <h5>Louise Joy King</h5>
-                        <h6>louisejoyk@email.com</h6>
-                    </div>
-                </div>
-            </div>
-            <ArrowBackIosIcon />
+        <div>
+            <Drawer
+                anchor="left"
+                open={openSideMenu}
+                onClose={toggleDrawer(false)}
+            >
+                <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}
+                    onClick={toggleDrawer(false)}
+                    onKeyDown={toggleDrawer(false)}
+                >
+                    <Box sx={{ p: 2 }}>
+                        <div className="menu-header">
+                            <p>SARAZA123</p>
+                        </div>
+                    </Box>
+                    <Divider />
+                    <Box sx={{ flexGrow: 1, p: 2 }}>
+                        <div className="menu-body">
+                            <List>
+                                <ListItem disablePadding>
+                                    <ListItemButton component={Link} to={"/"} >
+                                        <ListItemText primary="Home" />
+                                    </ListItemButton>
+                                </ListItem>
+                                <ListItem disablePadding>
+                                    <ListItemButton component={Link} to={"/my-projects"} >
+                                        <ListItemText primary="My Projects" />
+                                    </ListItemButton>
+                                </ListItem>
+                                <ListItem disablePadding>
+                                    <ListItemButton component={Link} to={"/my-stories"} >
+                                        <ListItemText primary="Stories" />
+                                    </ListItemButton>
+                                </ListItem>
+                            </List>
+                        </div>
+                    </Box>
+                    <Divider />
+                    <Box sx={{ p: 2 }}>
+                        <div className="menu-footer">
+                            <Avatar alt="profile picture" src={profilePlaceholder} className='footer-profile-picture' />
+                            <div className="footer-text">
+                                <h5>Louise Joy King</h5>
+                                <h6>louisejoyk@email.com</h6>
+                            </div>
+                        </div>
+                    </Box>
+                </Box>
+            </Drawer>
         </div>
     );
 }
-
-export default SideMenu;
