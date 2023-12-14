@@ -9,16 +9,14 @@ export async function getEpics() {
   return data;
 }
 
-export async function getEpicsByProjectId(TargetId) {
+export async function getEpicsByProjectId(targetId) {
   const response = await fetch(
     "https://firestore.googleapis.com/v1/projects/p-manager-1a182/databases/(default)/documents/epics/",
     { method: "GET" }
   );
   let data = await response.json();
   data = clearData(data.documents);
-  // console.log(data);
-  const filteredData = data.filter((epic) => epic.projectId == TargetId);
-  // console.log(filteredData)
+  const filteredData = data.filter((epic) => epic.projectId == targetId);
   return filteredData;
 }
 
