@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 //GET//
 export async function getTasks() {
   const response = await fetch(
@@ -8,6 +9,19 @@ export async function getTasks() {
   data = clearData(data.documents);
   return data;
 }
+export async function getTasksByStoryId(targetId) {
+  const response = await fetch(
+    "https://firestore.googleapis.com/v1/projects/p-manager-1a182/databases/(default)/documents/tasks/",
+    { method: "GET" }
+  );
+  let data = await response.json();
+  data = clearData(data.documents);
+  const filteredData = data.filter((task) => task.storyId == targetId);
+  return filteredData;
+}
+const dateToString = (date) => {
+  return date.$D.toString()+"/"+date.$M.toString()+"/"+date.$y.toString()
+}; //gets the 10 first characters of the timeStamp string.
 
 const clearData = (data) => {
   let filteredData = [];
@@ -17,8 +31,8 @@ const clearData = (data) => {
       description: item.fields.description.stringValue,
       storyId: item.fields.storyId.integerValue,
       id: item.name.split("/").pop(),
-      dueDate: item.fields.dueDate.timestampValue,
-      createdDate: item.fields.createdDate.timestampValue,
+      dueDate: dateToString(dayjs(item.fields.dueDate.timestampValue)),
+      createdDate: dateToString(dayjs(item.fields.createdDate.timestampValue)),
     });
   });
   return filteredData; //clears data

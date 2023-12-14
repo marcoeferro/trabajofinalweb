@@ -10,6 +10,16 @@ export async function getStories() {
   data = clearData(data.documents);
   return data;
 }
+export async function getStoriesByEpicId(targetId) {
+  const response = await fetch(
+    "https://firestore.googleapis.com/v1/projects/p-manager-1a182/databases/(default)/documents/stories/",
+    { method: "GET" }
+  );
+  let data = await response.json();
+  data = clearData(data.documents);
+  const filteredData = data.filter((story) => story.epicId == targetId);
+  return filteredData;
+}
 
 const dateToString = (date) => {
   return date.$D.toString()+"/"+date.$M.toString()+"/"+date.$y.toString()
@@ -27,7 +37,7 @@ const clearData = (data) => {
       state: item.fields.state.stringValue,
       ownerId: item.fields.ownerId.integerValue,
       assignedTo: item.fields.assignedTo.integerValue,
-      created: dateToString(dayjs(tem.fields.created.timestampValue)),
+      created: dateToString(dayjs(item.fields.created.timestampValue)),
       due: dateToString(dayjs(item.fields.due.timestampValue)),
       started: dateToString(dayjs(item.fields.started.timestampValue)),
       finished: dateToString(dayjs(item.fields.finished.timestampValue)),
