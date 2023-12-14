@@ -4,7 +4,7 @@ import { Modal } from '@mui/material';
 import CreateProject from '../create-project';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
-import { Link } from 'react-router-dom';
+import ProjectCard from '../ProjectCard/ProjectCard';
 
 const ProjectsList = ({ listaProyectos }) => {
 
@@ -95,16 +95,7 @@ const ProjectsList = ({ listaProyectos }) => {
                 {listaFiltrada && listaFiltrada.map((proyecto) => (
                     <div key={proyecto.id}>
                         <div className='info-proyecto'>
-                            <Link to={`/my-projects/${proyecto.id}`}>
-                                <h1>{proyecto.name}</h1>
-                            </Link>
-                            <div className='info-proyecto-upper'>
-                                <p>{proyecto.description}</p>
-                                <h2>{proyecto.icon}</h2>
-                                <span className="material-symbols-outlined">
-                                    shield_person
-                                </span>
-                            </div>
+                            <ProjectCard project={proyecto} />
                         </div>
                     </div>
                 ))}
