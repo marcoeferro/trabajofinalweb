@@ -1,11 +1,15 @@
-import { React } from "react";
+import { React, useState } from "react";
 import './ProjectCard.scss'
 import { Card, CardActionArea, CardContent, Box, Divider, Typography } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
+import { Link } from 'react-router-dom';
+import ResponsiveDialog from "../ResponsiveDialog/ResponsiveDialog";
 import { deleteProject } from "@/utils/projectManager";
+
 const ProjectCard = ({ project }) => {
-    const handleClose = (id) => {
-        deleteProject(id)
+    const [open, setOpen] = useState(false)
+    const handleOpen = () => {
+        setOpen(!open)
     }
     if (!project) {
         return (<Typography gutterBottom variant="h5" component="div">
@@ -17,11 +21,13 @@ const ProjectCard = ({ project }) => {
                 <CardActionArea>
                     <CardContent>
                         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1 }}>
-                            <Typography gutterBottom variant="h5" component="div">
-                                {project.name}
-                            </Typography>
+                            <Link to={`/my-projects/${project.id}`}>
+                                <Typography gutterBottom variant="h5" component="div">
+                                    {project.name}
+                                </Typography>
+                            </Link>
                             {project.icon && <Box component="div">{project.icon}</Box>}
-                            <DeleteIcon onClick={() => { handleClose(project.id) }} />
+                            <DeleteIcon onClick={handleOpen} />
                         </Box>
                         <Divider />
                         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 1 }}>
@@ -42,6 +48,7 @@ const ProjectCard = ({ project }) => {
                         </Box>
                     </CardContent>
                 </CardActionArea>
+                <ResponsiveDialog id={project.id} action={deleteProject} open={open} handleOpen={handleOpen} dialogTitle={"Esta Seguro que desea eliminar este Proyecto?"} dialogText={"Esta accion eliminara el proyecto de manera permanente"} />
             </Card>
         );
     }

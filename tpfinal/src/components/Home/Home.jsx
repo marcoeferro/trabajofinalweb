@@ -27,9 +27,7 @@ const Home = ({ listaProyectos }) => {
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: '10px', maxHeight: '800px', overflow: 'auto' }}>
                 {listaProyectos && listaProyectos.map((proyecto) => (
                     <Box key={proyecto.id}>
-                        <Link to={`/my-projects/${proyecto.id}`}>
-                            <ProjectCard project={proyecto} />
-                        </Link>
+                        <ProjectCard project={proyecto} />
                     </Box>
                 ))}
             </Box>

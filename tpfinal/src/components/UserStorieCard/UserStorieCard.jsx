@@ -3,10 +3,12 @@ import './UserStorieCard.scss'
 import { Card, CardActionArea, CardContent, Box, Divider, Typography } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import { deleteStory } from "@/utils/storyManager";
+import ResponsiveDialog from "../ResponsiveDialog/ResponsiveDialog";
 
 const UserStorieCard = ({ storie }) => {
-    const handleClose = (id) => {
-        deleteStory(id)
+    const [open, setOpen] = useState(false)
+    const handleOpen = () => {
+        setOpen(!open)
     }
     if (!storie) {
         return (<Typography gutterBottom variant="h5" component="div">
@@ -22,7 +24,7 @@ const UserStorieCard = ({ storie }) => {
                                 {storie.name}
                             </Typography>
                             {storie.icon && <Box component="div">{storie.icon}</Box>}
-                            <DeleteIcon onClick={() => { handleClose(storie.id) }} />
+                            <DeleteIcon onClick={handleOpen} />
                         </Box>
                         <Divider />
                         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 1 }}>
@@ -62,6 +64,7 @@ const UserStorieCard = ({ storie }) => {
                         </Box>
                     </CardContent>
                 </CardActionArea>
+                <ResponsiveDialog id={storie.id} action={deleteStory} open={open} handleOpen={handleOpen} dialogTitle={"Esta Seguro que desea eliminar esta Historia?"} dialogText={"Esta accion eliminara el Historia de manera permanente"} />
             </Card >
         );
     }

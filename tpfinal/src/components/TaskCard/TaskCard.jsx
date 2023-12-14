@@ -3,9 +3,11 @@ import './TaskCard.scss'
 import { Card, CardActionArea, CardContent, Box, Divider, Typography } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import { deleteTask } from "@/utils/taskManager";
+import ResponsiveDialog from "../ResponsiveDialog/ResponsiveDialog";
 const TaskCard = ({ task }) => {
-    const handleClose = (id) => {
-        deleteTask(id)
+    const [open, setOpen] = useState(false)
+    const handleOpen = () => {
+        setOpen(!open)
     }
     if (!task) {
         return (<Typography gutterBottom variant="h5" component="div">
@@ -21,7 +23,7 @@ const TaskCard = ({ task }) => {
                                 {task.name}
                             </Typography>
                             {task.icon && <Box component="div">{task.icon}</Box>}
-                            <DeleteIcon onClick={() => { handleClose(task.id) }} />
+                            <DeleteIcon onClick={handleOpen} />
                         </Box>
                         <Divider />
                         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 1 }}>
@@ -43,6 +45,7 @@ const TaskCard = ({ task }) => {
                         </Box>
                     </CardContent>
                 </CardActionArea>
+                <ResponsiveDialog id={task.id} action={deleteTask} open={open} handleOpen={handleOpen} dialogTitle={"Esta Seguro que desea eliminar esta Tarea?"} dialogText={"Esta accion eliminara el Tarea de manera permanente"} />
             </Card>
         );
     }
