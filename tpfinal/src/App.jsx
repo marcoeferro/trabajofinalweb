@@ -4,15 +4,13 @@ import SideMenu from "./components/SideMenu/SideMenu";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import ProjectDetails from "./components/ProjectDetails/ProjectDetails";
 import EpicsList from "./components/EpicsList/EpicsList";
-import EpicDetails from "./components/EpicsDetails/EpicDetails";
+import EpicDetails from "./components/EpicDetails/EpicDetails";
 import MenuPrincipal from "./components/MenuPrincipal/MenuPrincipal";
 import ProjectsList from "./components/ProjectsList/ProjectsList";
 import UserStories from "./components/UserStoriesList/UserStoriesList";
 import Settings from "./components/Settings/Settings";
 import getProjects from "./utils/projectManager";
 import Home from './components/Home/Home'
-import ProjectCard from "./components/ProjectCard/ProjectCard";
-import UserStorieCard from "./components/UserStorieCard/UserStorieCard";
 function App() {
 
   const [projects, setProjects] = useState(null)
@@ -75,17 +73,12 @@ function App() {
           {/* Nueva ruta para los detalles de épicas */}
           <Route
             path="/my-projects/:projectId/epics/:epicId"
-            element={<EpicDetails projects={projects} />}
+            element={<EpicDetails />}
           />
           {/* Nueva ruta para los detalles de historias */}
           <Route
             path="/my-projects/:projectId/epics/:epicId/:storyId"
             element={<h1>Detalle de la tarea ??</h1>}
-          />
-          {/* Nueva ruta para los detalles de historias */}
-          <Route
-            path="/test"
-            element={<UserStorieCard />}
           />
         </Routes>
       </div>

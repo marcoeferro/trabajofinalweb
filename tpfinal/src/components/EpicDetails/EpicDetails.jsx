@@ -1,25 +1,23 @@
-// src/components/List-Epics/EpicDetails.js
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import UserStoriesList from '../UserStoriesList/UserStoriesList';
+import { getEpicsByProjectId } from '@/utils/epicManager';
+import { getStoriesByEpicId } from '@/utils/storyManager';
 
-const EpicDetails = ({ projects }) => {
+const EpicDetails = () => {
   const { projectId, epicId } = useParams();
+  const [epic, setEpic] = useState(null)
+  const [stories, setStories] = useState(null)
 
-  // Verifica si projects está cargado
-  if (!projects) {
-    return <p>Cargando proyectos...</p>;
-  }
-
-  // Buscar la épica específica en todos los proyectos
-  const selectedProject = projects.find(p => String(p.id) === projectId);
-
-  // Verifica si el proyecto está cargado
-  if (!selectedProject) {
-    return <p>Proyecto no encontrado</p>;
-  }
-
-  const epic = selectedProject?.epics.find(e => e.id === epicId);
+  useEffect(() => {
+    getEpicsByProjectId(projectId).then((data) => {
+      const epic = data.find((epic) => epic.id === epicId);
+      setEpic(epic);
+    })
+    getStoriesByEpicId(projectId).then((data) => {
+      setStories(data);
+    })
+  }, [projectId, epicId])
 
   // Verifica si la épica está cargada
   if (!epic) {
@@ -34,13 +32,13 @@ const EpicDetails = ({ projects }) => {
 
       {/* Listado de Historias de Usuario utilizando UserStoriesList */}
       <h3>Historias de Usuario:</h3>
-      {epic.userStories && epic.userStories.length > 0 ? (
-        <UserStoriesList stories={epic.userStories} />
+      {!stories ? (
+        <UserStoriesList stories={stories} />
       ) : (
         <p>No hay historias de usuario definidas para esta épica.</p>
       )}
     </div>
   );
-};
+}
 
 export default EpicDetails;

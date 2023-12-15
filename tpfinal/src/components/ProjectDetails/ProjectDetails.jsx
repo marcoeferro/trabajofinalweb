@@ -3,15 +3,16 @@ import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import './ProjectDetails.scss'
 import { getEpicsByProjectId } from "@/utils/epicManager";
+import EpicCard from "../EpicCard/EpicCard";
 
 const ProjectDetails = ({ projects }) => {
   const { projectId } = useParams();
-  const [epics,setEpics] = useState([]);
-  
+  const [epics, setEpics] = useState([]);
 
-  useEffect(()=>{
-    getEpicsByProjectId(projectId).then((data)=>setEpics(data));
-  },[])
+
+  useEffect(() => {
+    getEpicsByProjectId(projectId).then((data) => setEpics(data));
+  }, [])
 
   if (!projects) {
     return <p>Proyecto no encontrado</p>;
@@ -26,17 +27,15 @@ const ProjectDetails = ({ projects }) => {
         <div>
           {epics ? (
             epics.map((epic, index) => (
-              <div key={index}>
-                <Link to={`/my-projects/${projectId}/epics/${epic.id}`}>
-                  {epic.name}
-                </Link>
+              <div key={index} >
+                <EpicCard epica={epic} />
               </div>
             ))
           ) : (
             <li>No hay Epics definidas para este proyecto.</li>
           )}
         </div>
-      </div>
+      </div >
     );
   }
 

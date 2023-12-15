@@ -2,14 +2,20 @@ import { React } from "react";
 import './UserStorieCard.scss'
 import { Card, CardActionArea, CardContent, Box, Divider, Typography } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import { deleteStory } from "@/utils/storyManager";
 import ResponsiveDialog from "../ResponsiveDialog/ResponsiveDialog";
 import { Link, useParams } from "react-router-dom";
+import UserStorieEdit from "../UserStorieEdit/UserStorieEdit";
 
 const UserStorieCard = ({ storie }) => {
-    const [open, setOpen] = useState(false)
-    const handleOpen = () => {
-        setOpen(!open)
+    const [openDelete, setOpenDelete] = useState(false)
+    const handleOpenDelete = () => {
+        setOpenDelete(!openDelete)
+    }
+    const [openEdit, setOpenEdit] = useState(false)
+    const handleCloseEdit = () => {
+        setOpenEdit(!openEdit)
     }
     const { projectId, epicId } = useParams();
     if (!storie) {
@@ -28,7 +34,8 @@ const UserStorieCard = ({ storie }) => {
                                 </Link>
                             </Typography>
                             {storie.icon && <Box component="div">{storie.icon}</Box>}
-                            <DeleteIcon onClick={handleOpen} />
+                            <EditIcon onClick={handleOpenEdit} />
+                            <DeleteIcon onClick={handleOpenDelete} />
                         </Box>
                         <Divider />
                         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 1 }}>
@@ -66,7 +73,8 @@ const UserStorieCard = ({ storie }) => {
                         </Box>
                     </CardContent>
                 </CardActionArea>
-                <ResponsiveDialog id={storie.id} action={deleteStory} open={open} handleOpen={handleOpen} dialogTitle={"Esta Seguro que desea eliminar esta Historia?"} dialogText={"Esta accion eliminara el Historia de manera permanente"} />
+                <UserStorieEdit epicId={epicId} storie={storie} open={open} handleClose={handleCloseEdit} />
+                <ResponsiveDialog id={storie.id} action={deleteStory} open={openDelete} handleOpen={handleOpenDelete} dialogTitle={"Esta Seguro que desea eliminar esta Historia?"} dialogText={"Esta accion eliminara el Historia de manera permanente"} />
             </Card >
         );
     }
