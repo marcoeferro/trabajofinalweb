@@ -1,9 +1,8 @@
 import React from 'react';
-import './Home.scss';
-import { Modal, Button, Box } from '@mui/material';
+import { Modal, Button, Box, Grid } from '@mui/material';
 import CreateProject from '../create-project';
-import { Link } from 'react-router-dom';
 import ProjectCard from '../ProjectCard/ProjectCard';
+
 const Home = ({ listaProyectos }) => {
 
     //modal
@@ -24,15 +23,14 @@ const Home = ({ listaProyectos }) => {
                     <CreateProject onClose={handleClose} />
                 </Box>
             </Modal>
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: '10px', maxHeight: '800px', overflow: 'auto' }}>
+            <Grid container spacing={2}>
                 {listaProyectos && listaProyectos.map((proyecto) => (
-                    <Box key={proyecto.id}>
+                    <Grid item xs={12} sm={6} md={4} lg={3} key={proyecto.id}>
                         <ProjectCard project={proyecto} />
-                    </Box>
+                    </Grid>
                 ))}
-            </Box>
+            </Grid>
         </Box >
-
     );
 };
 

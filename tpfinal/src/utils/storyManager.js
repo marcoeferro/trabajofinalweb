@@ -10,6 +10,8 @@ export async function getStories() {
   data = clearData(data.documents);
   return data;
 }
+export default getStories;
+
 export async function getStoriesByEpicId(targetId) {
   const response = await fetch(
     "https://firestore.googleapis.com/v1/projects/p-manager-1a182/databases/(default)/documents/stories/",
@@ -22,7 +24,7 @@ export async function getStoriesByEpicId(targetId) {
 }
 
 const dateToString = (date) => {
-  return date.$D.toString()+"/"+date.$M.toString()+"/"+date.$y.toString()
+  return date.$D.toString() + "/" + date.$M.toString() + "/" + date.$y.toString()
 }; //gets the 10 first characters of the timeStamp string.
 
 const clearData = (data) => {
@@ -47,7 +49,7 @@ const clearData = (data) => {
 };
 //dayjs(Date.now()).format('YYYY-MM-DDTHH:mm:ss.SSSZ')
 //POST//
-const dataBuilder = (name, description, icon, epicId,ownerId, state, points, assignedTo,due,created,started,finished) => {
+const dataBuilder = (name, description, icon, epicId, ownerId, state, points, assignedTo, due, created, started, finished) => {
   return {
     fields: {
       name: {
@@ -90,9 +92,9 @@ const dataBuilder = (name, description, icon, epicId,ownerId, state, points, ass
   };
 };
 
-export async function postStory(name, description, icon, epicId,ownerId, state, points, assignedTo,due,created,started,finished) {
+export async function postStory(name, description, icon, epicId, ownerId, state, points, assignedTo, due, created, started, finished) {
   const dateID = Date.now();
-  const data = dataBuilder(name, description, icon, epicId,ownerId, state, points, assignedTo,due,created,started,finished);
+  const data = dataBuilder(name, description, icon, epicId, ownerId, state, points, assignedTo, due, created, started, finished);
   const targetUrl =
     "https://firestore.googleapis.com/v1/projects/p-manager-1a182/databases/(default)/documents/stories/?documentId=" +
     dateID.toString();
@@ -105,11 +107,11 @@ export async function postStory(name, description, icon, epicId,ownerId, state, 
     .then((data) => console.log(data));
 }
 
-export async function patchStory(name, description, icon, epicId,ownerId, state, points, assignedTo,due,created,started,finished,id) {
+export async function patchStory(name, description, icon, epicId, ownerId, state, points, assignedTo, due, created, started, finished, id) {
   const targetUrl =
     "https://firestore.googleapis.com/v1/projects/p-manager-1a182/databases/(default)/documents/stories/" +
     id.toString(); //url objetivo, object.id es la id del documento a reemplazar
-  const data = dataBuilder(name, description, icon, epicId,ownerId, state, points, assignedTo,due,created,started,finished);
+  const data = dataBuilder(name, description, icon, epicId, ownerId, state, points, assignedTo, due, created, started, finished);
   const options = {
     //opciones de funcion fetch.
     method: "PATCH",

@@ -4,6 +4,8 @@ import { TextField, Button, Dialog, DialogTitle, DialogContent, DialogContentTex
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import dayjs from 'dayjs';
 
 function UserStorieEdit({ epicId, story, handleClose, open }) {
     const [newName, setName] = useState(story.name);
@@ -13,10 +15,11 @@ function UserStorieEdit({ epicId, story, handleClose, open }) {
     const [newState, setState] = useState(story.state);
     const [newPoints, setPoints] = useState(story.points);
     const [newAssignedTo, setAssignedTo] = useState(story.assignedTo);
-    const [newDueDate, setDueDate] = useState(story.due);
+    const [newDueDate, setDueDate] = useState(dayjs(story.due));
 
     const handlePatch = () => {
         patchStory(newName, newDescription, newIcon, epicId, newOwner, newState, newPoints, newAssignedTo, newDueDate, story.created, story.started, story.finished, story.id);
+        handleClose()
     };
 
     return (
@@ -125,14 +128,17 @@ function UserStorieEdit({ epicId, story, handleClose, open }) {
                             setAssignedTo(event.target.value);
                         }}
                     />
-                    <DatePicker
-                        label="Fecha de vencimiento"
-                        value={newDueDate}
-                        onChange={(newValue) => {
-                            setDueDate(newValue);
-                        }}
-                        renderInput={(params) => <TextField {...params} />}
-                    />
+                    <DemoContainer components={['DatePicker']}>
+
+                        <DatePicker
+                            label="Fecha de vencimiento"
+                            value={newDueDate}
+                            onChange={(newValue) => {
+                                setDueDate(newValue);
+                            }}
+                            renderInput={(params) => <TextField {...params} />}
+                        />
+                    </DemoContainer>
                 </DialogContent>
                 <DialogActions>
                     <Button variant="contained" color="primary" onClick={handlePatch}>

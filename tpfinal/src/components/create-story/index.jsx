@@ -1,11 +1,11 @@
-import "./index.scss";
-import { React, useState } from "react";
+import React, { useState } from "react";
+import { TextField, Button, Box, Grid, IconButton, Dialog, DialogContent, DialogTitle, DialogContentText, DialogActions, Select, MenuItem } from "@mui/material";
+import { postProject } from "@/utils/projectManager";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
-import { postStory } from "@/utils/storyManager";
 
-function CreateStory() {
+function CreateStory({ onClose }) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [icon, setIcon] = useState("");
@@ -20,7 +20,6 @@ function CreateStory() {
   const ownerId = 0;
 
   const submitStory = (event) => {
-    event.preventDefault();
     postStory(
       name,
       description,
@@ -34,99 +33,81 @@ function CreateStory() {
       created.format('YYYY-MM-DDTHH:mm:ss.SSSZ'),
       started.format('YYYY-MM-DDTHH:mm:ss.SSSZ'),
       finished.format('YYYY-MM-DDTHH:mm:ss.SSSZ'))
+    onClose()
   };
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <div className="create-story-container">
-        <form className="story-form">
-          <input
-            className="text-field name"
-            type="text"
-            placeholder="Nombre de la historia"
-            onChange={(event) => {
-              setName(event.target.value);
-            }}
-          ></input>
-          <textarea
-            rows={10}
-            className="text-field desc"
-            type="text"
-            placeholder="Descripcion de la historia"
-            onChange={(event) => {
-              setDescription(event.target.value);
-            }}
-          ></textarea>
-          <div className="date-picker-container">
-            <DatePicker label="fecha de entrega" value={dueDate} onChange={(date) => setDueDate(date)}/>
-            <div className="points-container">
-              <label>Story Points</label>
-              <input
-                type="number"
-                min="1" max="10"
-                placeholder="entre 1 y 10"
-                onChange={(event) => setPoints(event.target.value)}
-              ></input>
-            </div>
-          </div>
-          <div className="select-container">
-            <label className="select-label">Selecciona un estado</label>
-            <select
-              name="state"
-              id="state"
-              className="state"
-              onChange={(event) => setState(event.target.value)}
-            >
-              <option value="todo">todo</option>
-              <option value="running">running</option>
-              <option value="done">done</option>
-            </select>
-          </div>
-          <div className="icon-selector">
-            <p>selecciona un icono!</p>
-            <button
-              className="icon"
-              type="Button"
-              onClick={() => setIcon("🚀")}
-            >
-              🚀
-            </button>
-            <button
-              className="icon"
-              type="Button"
-              onClick={() => setIcon("🔍")}
-            >
-              🔍
-            </button>
-            <button
-              className="icon"
-              type="Button"
-              onClick={() => setIcon("📈")}
-            >
-              📈
-            </button>
-            <button
-              className="icon"
-              type="Button"
-              onClick={() => setIcon("📝")}
-            >
-              📝
-            </button>
-            <button
-              className="icon"
-              type="Button"
-              onClick={() => setIcon("🎯")}
-            >
-              🎯
-            </button>
-          </div>
-
-          <button 
-            className="create-story-submit"
-            onClick={(event) => submitStory(event)}
-          >Submit</button>
-        </form>
-      </div>
+      <Dialog open={true} onClose={onClose}>
+        <DialogTitle>Nueva Historia</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Por favor, rellena la información de la nueva historia.
+          </DialogContentText>
+          <form noValidate autoComplete="off">
+            <Grid container spacing={2}>
+              <Grid item xs={6}>
+                <TextField
+                  label="Nombre de la historia"
+                  variant="outlined"
+                  fullWidth
+                  onChange={(event) => {
+                    setName(event.target.value);
+                  }}
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <DatePicker label="Fecha de entrega" value={dueDate} onChange={(date) => setDueDate(date)} fullWidth />
+              </Grid>
+              <Grid item xs={6}>
+                <Select
+                  label="Selecciona un estado"
+                  value={state}
+                  onChange={(event) => setState(event.target.value)}
+                  fullWidth
+                >
+                  <MenuItem value="todo">todo</MenuItem>
+                  <MenuItem value="running">running</MenuItem>
+                  <MenuItem value="done">done</MenuItem>
+                </Select>
+              </Grid>
+              <Grid item xs={6}>
+                <TextField
+                  label="Story Points"
+                  type="number"
+                  InputProps={{ inputProps: { min: 1, max: 10 } }}
+                  variant="outlined"
+                  fullWidth
+                  onChange={(event) => setPoints(event.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  label="Descripcion de la historia"
+                  variant="outlined"
+                  multiline
+                  rows={4}
+                  fullWidth
+                  onChange={(event) => {
+                    setDescription(event.target.value);
+                  }}
+                />
+              </Grid>
+            </Grid>
+            <Box sx={{ display: 'flex', flexDirection: 'row', gap: '10px' }}>
+              <IconButton onClick={() => setIcon("🚀")}>🚀</IconButton>
+              <IconButton onClick={() => setIcon("🔍")}>🔍</IconButton>
+              <IconButton onClick={() => setIcon("📈")}>📈</IconButton>
+              <IconButton onClick={() => setIcon("📝")}>📝</IconButton>
+              <IconButton onClick={() => setIcon("🎯")}>🎯</IconButton>
+            </Box>
+          </form>
+        </DialogContent>
+        <DialogActions>
+          <Button variant="contained" onClick={submitStory}>Submit</Button>
+          <Button variant="contained" onClick={onClose}>Close</Button>
+        </DialogActions>
+      </Dialog>
     </LocalizationProvider>
   );
 }

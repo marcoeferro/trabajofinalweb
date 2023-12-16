@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import './ProjectsList.scss';
-import { Modal } from '@mui/material';
+import { Modal, Button, TextField, IconButton, Grid, Select, MenuItem } from '@mui/material';
 import CreateProject from '../create-project';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
 import ProjectCard from '../ProjectCard/ProjectCard';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
 
 const ProjectsList = ({ listaProyectos }) => {
 
@@ -30,21 +34,16 @@ const ProjectsList = ({ listaProyectos }) => {
     }, [listaProyectos]);
 
     //Funciones Filtro
-    const filtrarLista = () => {
-        if (!filtroName && !filtroDate && !filtroState) {
-            limpiarFiltros()
-        } else {
-            const nuevaListaFiltrada = lista.filter((proyecto) => (proyecto.name == filtroName))
-            setListaFiltrada(nuevaListaFiltrada)
-        }
-        setFiltrado(!filtrado)
+    const aplicarFiltro = () => {
+        const nuevaListaFiltrada = lista.filter((proyecto) => {
+            const coincideNombre = filtroName ? proyecto.name === filtroName : true;
+            const coincideEstado = filtroState ? proyecto.state === filtroState : true;
+            const coincideFecha = filtroDate ? proyecto.date === filtroDate : true;
+            return coincideNombre && coincideEstado && coincideFecha;
+        });
+        setListaFiltrada(nuevaListaFiltrada);
+        setFiltrado(true);
     };
-
-    useEffect(() => {
-        console.log(open)
-    }, [filtroName, filtroState, filtroDate])
-
-
 
     const limpiarFiltros = () => {
         setfiltroName('');
@@ -54,54 +53,82 @@ const ProjectsList = ({ listaProyectos }) => {
         setFiltrado(!filtrado)
     };
     return (
-
-        <div className='Projects-list-container'>
-            <button onClick={handleOpen}>+</button>
-            <Modal
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-            >
-                <div>
-                    <CreateProject onClose={handleClose} />
-                </div>
-            </Modal>
-            <div className='filtro'>
-                <input
-                    type="text"
-                    value={filtroName || ''}
-                    onChange={(e) => setfiltroName(e.target.value)}
-                    placeholder='Ingrese el Name'
-                />
-
-                {/* <input
-                    id='datepicker'
-                    type="date"
-                    value={filtroDate || ''}
-                    onChange={(e) => setFiltroDate(e.target.value)}
-                />
-
-                <select name="States" id="" onChange={(e) => setFiltroState(e.target.value)}>
-                    <option value="Por Empezar">Por Empezar</option>
-                    <option value="En progreso">En progreso</option>
-                    <option value="Cancelado">Cancelado</option>
-                    <option value="Completado">Completado</option>
-                </select> */}
-                {!filtrado && <span onClick={filtrarLista}><FilterAltIcon /></span>}
-                {filtrado && <span onClick={limpiarFiltros}><FilterAltOffIcon /></span>}
-            </div >
-            <div className='lista'>
-                {listaFiltrada && listaFiltrada.map((proyecto) => (
-                    <div key={proyecto.id}>
-                        <div className='info-proyecto'>
-                            <ProjectCard project={proyecto} />
-                        </div>
+        <div>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <Grid container justifyContent={'center'} spacing={1} margin={'10px'}>
+                    <Grid item xs={12}>
+                        <FormControl fullWidth>
+                            <Button variant="outlined" onClick={handleOpen}>+</Button>
+                        </FormControl>
+                    </Grid>
+                </Grid>
+                <Modal
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                >
+                    <div>
+                        <CreateProject onClose={handleClose} />
                     </div>
-                ))}
-            </div>
-        </div >
+                </Modal>
+                <Grid container spacing={1} margin={'10px'}>
+                    <Grid item xs={3}>
+                        <TextField
+                            variant="outlined"
+                            required
+                            fullWidth
+                            id="filtroName"
+                            label="Ingrese el Name"
+                            name="filtroName"
+                            autoComplete="filtroName"
+                            autoFocus
+                            value={filtroName || ''}
+                            onChange={(e) => setfiltroName(e.target.value)}
+                        />
+                    </Grid>
+                    <Grid item xs={3}>
+                        <DatePicker
+                            id='date'
+                            label="Fecha"
+                            value={filtroDate || ''}
+                            onChange={(e) => setfiltroName(e.target.value)}
+                            renderInput={(params) => <TextField {...params} />}
+                        />
+                    </Grid>
+                    <Grid item xs={3}>
+                        <FormControl fullWidth>
+                            <InputLabel id="demo-simple-select-label">Estado</InputLabel>
+                            <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                value={filtroState || ''}
+                                label="Estado"
+                                onChange={(e) => setFiltroState(e.target.value)}
+                            >
+                                <MenuItem value={"Por Empezar"}>Por Empezar</MenuItem>
+                                <MenuItem value={"En progreso"}>En progreso</MenuItem>
+                                <MenuItem value={"Cancelado"}>Cancelado</MenuItem>
+                                <MenuItem value={"Completado"}>Completado</MenuItem>
+                            </Select>
+                        </FormControl>
+                    </Grid>
+                    <Grid item xs={3}>
+                        <IconButton onClick={filtrado ? limpiarFiltros : aplicarFiltro}>
+                            {filtrado ? <FilterAltOffIcon /> : <FilterAltIcon />}
+                        </IconButton>
+                    </Grid>
+                </Grid>
+                <Grid container spacing={2}>
+                    {listaFiltrada && listaFiltrada.map((proyecto) => (
+                        <Grid item xs={12} sm={6} md={4} lg={3} key={proyecto.id}>
+                            <ProjectCard project={proyecto} />
+                        </Grid>
+                    ))}
+                </Grid>
+            </LocalizationProvider>
 
+        </div >
     );
 };
 

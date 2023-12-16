@@ -1,6 +1,5 @@
 import { React, useState } from "react";
-import './ProjectCard.scss'
-import { Card, CardActionArea, CardContent, Box, Divider, Typography } from "@mui/material";
+import { Card, CardActionArea, CardContent, Box, Divider, Typography, Grid } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { Link } from 'react-router-dom';
@@ -16,7 +15,6 @@ const ProjectCard = ({ project }) => {
     const [openEdit, setOpenEdit] = useState(false)
     const handleOpenEdit = () => {
         setOpenEdit(!openEdit)
-        console.log(openEdit)
     }
 
     if (!project) {
@@ -28,29 +26,32 @@ const ProjectCard = ({ project }) => {
             <Card sx={{ maxWidth: 345 }}>
                 <CardActionArea>
                     <CardContent>
-                        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1 }}>
-                            <Link to={`/my-projects/${project.id}`}>
-                                <Typography gutterBottom variant="h5" component="div">
-                                    {project.name}
-                                </Typography>
-                            </Link>
-                            {project.icon && <Box component="div">{project.icon}</Box>}
-                            <EditIcon onClick={handleOpenEdit} />
-                            <DeleteIcon onClick={handleOpenDelete} />
-                        </Box>
+                        <Grid container alignItems="center">
+                            <Grid item xs={8}>
+                                <Link to={`/my-projects/${project.id}`}>
+                                    <Typography gutterBottom variant="h5" component="div" noWrap>
+                                        {project.name}
+                                    </Typography>
+                                </Link>
+                            </Grid>
+                            <Grid item xs={4} style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                                <EditIcon onClick={handleOpenEdit} />
+                                <DeleteIcon onClick={handleOpenDelete} />
+                            </Grid>
+                        </Grid>
                         <Divider />
                         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 1 }}>
                             {project.description ?
-                                <Typography variant="body2" color="text.secondary">
+                                <Typography variant="body2" color="text.secondary" noWrap>
                                     {project.description}
                                 </Typography> : "Esta project no tiene descripcion"}
                             <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 1 }}>
                                 {project.state &&
-                                    <Typography variant="body2" color="text.secondary">
+                                    <Typography variant="body2" color="text.secondary" noWrap>
                                         {project.state}
                                     </Typography>}
                                 {project.dueDate &&
-                                    <Typography variant="body2" color="text.secondary">
+                                    <Typography variant="body2" color="text.secondary" noWrap>
                                         {project.dueDate}
                                     </Typography>}
                             </Box>

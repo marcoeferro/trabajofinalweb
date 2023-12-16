@@ -59,13 +59,11 @@ export default function TemporaryDrawer({ openSideMenu, handleOpenSideMenu }) {
                         </div>
                     </Box>
                     <Divider />
-                    <Box sx={{ p: 2 }}>
-                        <div className="menu-footer">
-                            <Avatar alt="profile picture" src={profilePlaceholder} className='footer-profile-picture' />
-                            <div className="footer-text">
-                                <h5>Louise Joy King</h5>
-                                <h6>louisejoyk@email.com</h6>
-                            </div>
+                    <Box sx={{ p: 2, display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: '20px' }}>
+                        <Avatar alt="profile picture" src={profilePlaceholder} className='footer-profile-picture' />
+                        <div className="footer-text">
+                            <h5>Louise Joy King</h5>
+                            <h6>louisejoyk@email.com</h6>
                         </div>
                     </Box>
                 </Box>

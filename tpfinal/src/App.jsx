@@ -7,10 +7,11 @@ import EpicsList from "./components/EpicsList/EpicsList";
 import EpicDetails from "./components/EpicDetails/EpicDetails";
 import MenuPrincipal from "./components/MenuPrincipal/MenuPrincipal";
 import ProjectsList from "./components/ProjectsList/ProjectsList";
-import UserStories from "./components/UserStoriesList/UserStoriesList";
+import UserStoriesList from "./components/UserStoriesList/UserStoriesList";
 import Settings from "./components/Settings/Settings";
 import getProjects from "./utils/projectManager";
 import Home from './components/Home/Home'
+import TaskList from "./components/task-list";
 function App() {
 
   const [projects, setProjects] = useState(null)
@@ -50,7 +51,7 @@ function App() {
           />
           <Route
             path="/my-stories"
-            element={<UserStories />}
+            element={<UserStoriesList />}
           />
           <Route
             path="/settings"
@@ -78,7 +79,7 @@ function App() {
           {/* Nueva ruta para los detalles de historias */}
           <Route
             path="/my-projects/:projectId/epics/:epicId/:storyId"
-            element={<h1>Detalle de la tarea ??</h1>}
+            element={<TaskList />}
           />
         </Routes>
       </div>

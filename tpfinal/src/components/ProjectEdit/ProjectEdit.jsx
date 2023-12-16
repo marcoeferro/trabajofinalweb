@@ -15,6 +15,7 @@ function ProjectEdit({ project, handleClose, open }) {
 
     const handlePatch = () => {
         patchProject(newName, newDescription, newIcon, newMembers, newDueDate, project.id);
+        handleClose()
     };
 
     return (

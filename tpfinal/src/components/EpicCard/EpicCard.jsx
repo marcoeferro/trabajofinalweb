@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import './EpicCard.scss'
-import { Card, CardActionArea, CardContent, Box, Divider, Typography } from "@mui/material";
+import { Card, CardActionArea, CardContent, Box, Divider, Typography, Grid } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { deleteEpic } from "@/utils/epicManager";
@@ -19,7 +18,6 @@ const EpicCard = ({ epica }) => {
     }
     const { projectId } = useParams();
 
-
     if (!epica) {
         return (<Typography gutterBottom variant="h5" component="div">
             No se encontro epica
@@ -29,19 +27,22 @@ const EpicCard = ({ epica }) => {
             <Card sx={{ maxWidth: 345, margin: '10px' }}>
                 <CardActionArea>
                     <CardContent>
-                        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1 }}>
-                            <Typography gutterBottom variant="h5" component="div">
-                                <Link to={`/my-projects/${projectId}/epics/${epica.id}`}>
-                                    {epica.name}
-                                </Link>
-                            </Typography>
-                            {epica.icon && <Box component="div">{epica.icon}</Box>}
-                            <EditIcon onClick={handleOpenEdit} />
-                            <DeleteIcon onClick={handleOpenDelete} />
-                        </Box>
+                        <Grid container alignItems="center">
+                            <Grid item xs={8}>
+                                <Typography gutterBottom variant="h5" component="div" noWrap>
+                                    <Link to={`/my-projects/${projectId}/epics/${epica.id}`}>
+                                        {epica.name}
+                                    </Link>
+                                </Typography>
+                            </Grid>
+                            <Grid item xs={4} style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                                <EditIcon onClick={handleOpenEdit} />
+                                <DeleteIcon onClick={handleOpenDelete} />
+                            </Grid>
+                        </Grid>
                         <Divider />
                         {epica.description ?
-                            <Typography variant="body2" color="text.secondary">
+                            <Typography variant="body2" color="text.secondary" noWrap>
                                 {epica.description}
                             </Typography> : "Esta epica no tiene descripcion"}
                     </CardContent>
