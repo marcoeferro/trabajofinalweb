@@ -1,6 +1,6 @@
 import React from 'react';
 import { Modal, Button, Box, Grid } from '@mui/material';
-import CreateProject from '../create-project';
+import CreateProject from '../CreateProject/CreateProject';
 import ProjectCard from '../ProjectCard/ProjectCard';
 
 const Home = ({ listaProyectos }) => {

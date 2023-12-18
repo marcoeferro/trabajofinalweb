@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Button, TextField, IconButton, Grid, Select, MenuItem } from '@mui/material';
-import CreateProject from '../create-project';
+import CreateProject from '../CreateProject/CreateProject';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
 import ProjectCard from '../ProjectCard/ProjectCard';

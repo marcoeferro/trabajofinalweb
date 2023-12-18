@@ -21,10 +21,10 @@ function ProjectEdit({ project, handleClose, open }) {
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
             <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>Editar Epica</DialogTitle>
+                <DialogTitle>Editar Proyecto</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        Por favor, edita los detalles de la épica a continuación.
+                        Por favor, edita los detalles del proyecto a continuación.
                     </DialogContentText>
                     <TextField
                         variant="outlined"
