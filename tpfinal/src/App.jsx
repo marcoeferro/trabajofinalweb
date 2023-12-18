@@ -3,15 +3,15 @@ import "./App.scss";
 import SideMenu from "./components/SideMenu/SideMenu";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import ProjectDetails from "./components/ProjectDetails/ProjectDetails";
-import EpicsList from "./components/EpicsList/EpicsList";
 import EpicDetails from "./components/EpicDetails/EpicDetails";
 import MenuPrincipal from "./components/MenuPrincipal/MenuPrincipal";
 import ProjectsList from "./components/ProjectsList/ProjectsList";
 import UserStoriesList from "./components/UserStoriesList/UserStoriesList";
 import Settings from "./components/Settings/Settings";
 import getProjects from "./utils/projectManager";
-import Home from './components/Home/Home'
-import TaskList from "./components/task-list";
+import Home from './components/Home/Home';
+import UserStoryDetail from "./components/UserStoryDetail/UserStoryDetail";
+
 function App() {
 
   const [projects, setProjects] = useState(null)
@@ -66,20 +66,19 @@ function App() {
             exact
             element={<ProjectDetails projects={projects} />}
           />
-          {/* Nueva ruta para la lista de épicas */}
-          <Route
-            path="/my-projects/:projectId/epics"
-            element={<EpicsList projects={projects} />}
-          />
           {/* Nueva ruta para los detalles de épicas */}
           <Route
-            path="/my-projects/:projectId/epics/:epicId"
+            path="/my-projects/:projectId/:epicId"
             element={<EpicDetails />}
           />
           {/* Nueva ruta para los detalles de historias */}
           <Route
-            path="/my-projects/:projectId/epics/:epicId/:storyId"
-            element={<TaskList />}
+            path="/my-projects/:projectId/:epicId/:storyId"
+            element={<UserStoryDetail />}
+          />
+          <Route
+            path="/test"
+            element={<UserStoryDetail />}
           />
         </Routes>
       </div>

@@ -1,31 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Button, TextField, IconButton } from '@mui/material';
-import CreateStory from '../create-story';
+import CreateStory from '../CreateStory/CreateStory';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
 import UserStorieCard from '../UserStorieCard/UserStorieCard';
-import getStories from './../../utils/storyManager'
+import { getStories } from './../../utils/storyManager'
 import { InputAdornment } from "@mui/material";
 
 const UserStoriesList = () => {
-  const [stories, setStories] = useState(null)
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const projectsData = await getStories();
-        setStories(projectsData);
-      } catch (error) {
-        console.error('Error al obtener historias:', error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
   //listas
-  const [lista, setLista] = useState(stories);
-  const [listaFiltrada, setListaFiltrada] = useState(stories);
+  const [lista, setLista] = useState(null);
+  const [listaFiltrada, setListaFiltrada] = useState(null);
 
   // Inicializa los filtros
   const [filtrado, setFiltrado] = useState(false);
@@ -38,9 +23,11 @@ const UserStoriesList = () => {
 
   //Inicializador de estados
   useEffect(() => {
-    setLista(stories);
-    setListaFiltrada(stories);
-  }, [stories]);
+    getStories().then((data) => {
+      setLista(data);
+      setListaFiltrada(data);
+    })
+  }, []);
 
   //Funciones Filtro
   const filtrarLista = () => {

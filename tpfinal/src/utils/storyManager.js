@@ -10,7 +10,6 @@ export async function getStories() {
   data = clearData(data.documents);
   return data;
 }
-export default getStories;
 
 export async function getStoriesByEpicId(targetId) {
   const response = await fetch(

@@ -30,7 +30,7 @@ const EpicCard = ({ epica }) => {
                         <Grid container alignItems="center">
                             <Grid item xs={8}>
                                 <Typography gutterBottom variant="h5" component="div" noWrap>
-                                    <Link to={`/my-projects/${projectId}/epics/${epica.id}`}>
+                                    <Link to={`/my-projects/${projectId}/${epica.id}`}>
                                         {epica.name}
                                     </Link>
                                 </Typography>

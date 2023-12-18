@@ -1,6 +1,6 @@
 // src/components/ProjectComponents/ProjectDetails.js
 import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import './ProjectDetails.scss'
 import { getEpicsByProjectId } from "@/utils/epicManager";
 import EpicCard from "../EpicCard/EpicCard";

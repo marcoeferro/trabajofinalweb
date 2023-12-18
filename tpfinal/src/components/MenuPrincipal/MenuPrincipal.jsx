@@ -28,17 +28,17 @@ const MenuPrincipal = ({ handleOpenSideMenu }) => {
                                 <Link color="inherit" to={`/my-projects/${pathnames[1]}`}>
                                     <Typography variant="h6">Proyecto {`${pathnames[1]}`}</Typography>
                                 </Link>
-                                <Link color="inherit" to={`/my-projects/${pathnames[4]}/epics/${pathnames[3]}`}>
-                                    <Typography variant="h6">Epica {`${pathnames[3]}`}</Typography>
+                                <Link color="inherit" to={`/my-projects/${pathnames[3]}/${pathnames[2]}`}>
+                                    <Typography variant="h6">Epica {`${pathnames[2]}`}</Typography>
                                 </Link>
-                                <Typography color="textPrimary" variant="h6">Historia {`${pathnames[4]}`}</Typography>
+                                <Typography color="textPrimary" variant="h6">Historia {`${pathnames[3]}`}</Typography>
                             </Breadcrumbs>
-                            ) : (pathnames.length == 4) ? (
+                            ) : (pathnames.length == 3) ? (
                                 <Breadcrumbs separator="›" aria-label="breadcrumb">
                                     <Link color="inherit" to={`/my-projects/${pathnames[1]}`}>
                                         <Typography variant="h6">Proyecto {`${pathnames[1]}`}</Typography>
                                     </Link>
-                                    {pathnames.length > 3 && <Typography color="textPrimary" variant="h6">Epica {`${pathnames[3]}`}</Typography>}
+                                    {pathnames.length > 2 && <Typography color="textPrimary" variant="h6">Epica {`${pathnames[2]}`}</Typography>}
                                 </Breadcrumbs>
                             ) : (pathnames.length == 2) ? (
                                 <Breadcrumbs separator="›" aria-label="breadcrumb">

@@ -1,11 +1,12 @@
-import React, { useState } from "react";
-import { TextField, Button, Box, Grid, IconButton, Dialog, DialogContent, DialogTitle, DialogContentText, DialogActions, Select, MenuItem } from "@mui/material";
-import { postProject } from "@/utils/projectManager";
+import React, { useEffect, useState } from "react";
+import { TextField, Button, Box, Grid, IconButton, Dialog, DialogContent, DialogTitle, DialogContentText, DialogActions, Select, MenuItem, Autocomplete } from "@mui/material";
+import { postStory } from '@/utils/storyManager'
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
+import { getEpics } from "@/utils/epicManager";
 
-function CreateStory({ onClose }) {
+function CreateStory({ onClose, onStoryCreated, epicaId }) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [icon, setIcon] = useState("");
@@ -16,8 +17,24 @@ function CreateStory({ onClose }) {
   const started = dayjs(Date.now());
   const finished = dayjs(Date.now());
   const assignedTo = 0;
-  const epicId = 0;
+  const [epicId, setEpicId] = useState(null);
   const ownerId = 0;
+  const [epics, setEpics] = useState([])
+
+  if (!epicaId) {
+    useEffect(() => {
+      getEpics().then((data) => {
+        const transformedData = data.map(obj => ({
+          label: obj.name,
+          id: obj.id
+        }));
+        setEpics(transformedData);
+      })
+    }, [])
+  } else if (epicId) {
+    setEpicId(epicaId)
+  }
+
 
   const submitStory = (event) => {
     postStory(
@@ -32,7 +49,10 @@ function CreateStory({ onClose }) {
       dueDate.format('YYYY-MM-DDTHH:mm:ss.SSSZ'),
       created.format('YYYY-MM-DDTHH:mm:ss.SSSZ'),
       started.format('YYYY-MM-DDTHH:mm:ss.SSSZ'),
-      finished.format('YYYY-MM-DDTHH:mm:ss.SSSZ'))
+      finished.format('YYYY-MM-DDTHH:mm:ss.SSSZ')
+    ).then((newStory) => {
+      onStoryCreated(newStory);
+    })
     onClose()
   };
 
@@ -46,6 +66,19 @@ function CreateStory({ onClose }) {
           </DialogContentText>
           <form noValidate autoComplete="off">
             <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <Autocomplete
+                  disabled={epicaId}
+                  value={epicaId}
+                  disablePortal
+                  id="combo-box-demo"
+                  options={epics}
+                  renderInput={(params) => <TextField {...params} label="Epicas" />}
+                  onChange={(event, newValue) => {
+                    setEpicId(newValue.id);
+                  }}
+                />
+              </Grid>
               <Grid item xs={6}>
                 <TextField
                   label="Nombre de la historia"
