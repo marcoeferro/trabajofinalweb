@@ -36,8 +36,8 @@ const ProjectsDetails = ({ projects }) => {
       setProject(selectedProject)
     })
     getEpicsByProjectId(projectId).then((data) => {
-      const epica = data.find((a) => String(a.id) === epicId)
-      setEpic(epica);
+      setLista(data);
+      setListaFiltrada(data)
     })
 
   }, [epicId, projectId])
