@@ -1,7 +1,7 @@
 //GET//
 export async function getEpics() {
   const response = await fetch(
-    "https://firestore.googleapis.com/v1/projects/p-manager-1a182/databases/(default)/documents/epics/",
+    "https://firestore.googleapis.com/v1/projects/pmapp-e71a2/databases/(default)/documents/epics/",
     { method: "GET" }
   );
   let data = await response.json();
@@ -11,7 +11,7 @@ export async function getEpics() {
 
 export async function getEpicsByProjectId(targetId) {
   const response = await fetch(
-    "https://firestore.googleapis.com/v1/projects/p-manager-1a182/databases/(default)/documents/epics/",
+    "https://firestore.googleapis.com/v1/projects/pmapp-e71a2/databases/(default)/documents/epics/",
     { method: "GET" }
   );
   let data = await response.json();
@@ -58,7 +58,7 @@ export async function postEpic(name, description, icon, projectId) {
   const dateID = Date.now();
   const data = dataBuilder(name, description, icon, projectId);
   const targetUrl =
-    "https://firestore.googleapis.com/v1/projects/p-manager-1a182/databases/(default)/documents/epics/?documentId=" +
+    "https://firestore.googleapis.com/v1/projects/pmapp-e71a2/databases/(default)/documents/epics/?documentId=" +
     dateID.toString();
   const options = {
     method: "POST",
@@ -71,7 +71,7 @@ export async function postEpic(name, description, icon, projectId) {
 
 export async function patchEpic(name, description, icon, projectId, id) {
   const targetUrl =
-    "https://firestore.googleapis.com/v1/projects/p-manager-1a182/databases/(default)/documents/epics/" +
+    "https://firestore.googleapis.com/v1/projects/pmapp-e71a2/databases/(default)/documents/epics/" +
     id.toString(); //url objetivo, object.id es la id del documento a reemplazar
   const data = dataBuilder(name, description, icon, projectId);
   const options = {
@@ -87,7 +87,7 @@ export async function patchEpic(name, description, icon, projectId, id) {
 //DELETE
 export async function deleteEpic(targetId) {
   const targetUrl =
-    "https://firestore.googleapis.com/v1/projects/p-manager-1a182/databases/(default)/documents/epics/" +
+    "https://firestore.googleapis.com/v1/projects/pmapp-e71a2/databases/(default)/documents/epics/" +
     targetId.toString(); //url objetivo, object.id es la id del documento a eliminar
   const options = {
     //opciones de funcion fetch.
