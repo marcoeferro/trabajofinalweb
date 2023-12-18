@@ -31,6 +31,23 @@ function TaskList() {
     )
   }
 
+  const deleteTask = (taskId) => {
+    const updatedTasks = tasks.filter(task => task.id !== taskId);
+    setTasks(updatedTasks);
+      return (
+       <div>
+         <ul>
+           {tasks.map(task => (
+            <li key={task.id}>
+            {task.text}
+            <button onClick={() => deleteTask(task.id)}>Eliminar</button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
   return (
     <div className="task-list-container">
       <NavBar/>
@@ -40,6 +57,7 @@ function TaskList() {
       </div>
     </div>
   );
-}
+};
+
 
 export default TaskList;
