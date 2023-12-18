@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 //GET//
 export async function getTasks() {
   const response = await fetch(
-    "https://firestore.googleapis.com/v1/projects/p-manager-1a182/databases/(default)/documents/tasks/",
+    "https://firestore.googleapis.com/v1/projects/pmapp-e71a2/databases/(default)/documents/tasks/",
     { method: "GET" }
   );
   let data = await response.json();
@@ -11,7 +11,7 @@ export async function getTasks() {
 }
 export async function getTasksByStoryId(targetId) {
   const response = await fetch(
-    "https://firestore.googleapis.com/v1/projects/p-manager-1a182/databases/(default)/documents/tasks/",
+    "https://firestore.googleapis.com/v1/projects/pmapp-e71a2/databases/(default)/documents/tasks/",
     { method: "GET" }
   );
   let data = await response.json();
@@ -64,7 +64,7 @@ export async function postTask(name, description, storyId,createdDate,dueDate) {
   const dateID = Date.now();
   const data = dataBuilder(name, description, storyId,createdDate,dueDate);
   const targetUrl =
-    "https://firestore.googleapis.com/v1/projects/p-manager-1a182/databases/(default)/documents/tasks/?documentId=" +
+    "https://firestore.googleapis.com/v1/projects/pmapp-e71a2/databases/(default)/documents/tasks/?documentId=" +
     dateID.toString();
   const options = {
     method: "POST",
@@ -79,7 +79,7 @@ export async function postTask(name, description, storyId,createdDate,dueDate) {
 
 export async function patchTask(name, description, storyId,createdDate,dueDate,id) {
   const targetUrl =
-    "https://firestore.googleapis.com/v1/projects/p-manager-1a182/databases/(default)/documents/tasks/" +
+    "https://firestore.googleapis.com/v1/projects/pmapp-e71a2/databases/(default)/documents/tasks/" +
     id.toString(); //url objetivo, object.id es la id del documento a reemplazar
   const data = dataBuilder(name, description, storyId,createdDate,dueDate);
   const options = {
@@ -95,7 +95,7 @@ export async function patchTask(name, description, storyId,createdDate,dueDate,i
 //DELETE
 export async function deleteTask(targetId) {
   const targetUrl =
-    "https://firestore.googleapis.com/v1/projects/p-manager-1a182/databases/(default)/documents/tasks/" +
+    "https://firestore.googleapis.com/v1/projects/pmapp-e71a2/databases/(default)/documents/tasks/" +
     targetId.toString(); //url objetivo, object.id es la id del documento a eliminar
   const options = {
     //opciones de funcion fetch.
