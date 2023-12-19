@@ -9,6 +9,7 @@ function EpicEdit({ epic, handleClose, open }) {
 
     const handlePatch = () => {
         patchEpic(newName, newDescription, newIcon, epic.projectId, epic.id);
+        handleClose()
     };
 
     return (
