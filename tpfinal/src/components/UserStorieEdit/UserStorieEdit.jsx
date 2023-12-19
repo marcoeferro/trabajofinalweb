@@ -11,11 +11,11 @@ function UserStorieEdit({ epicId, story, handleClose, open }) {
     const [newName, setName] = useState(story.name);
     const [newDescription, setDescription] = useState(story.description);
     const [newIcon, setIcon] = useState(story.icon);
-    const [newOwner, setOwner] = useState(story.owner);
+    const [newOwner, setOwner] = useState(story.owner || '');
     const [newState, setState] = useState(story.state);
     const [newPoints, setPoints] = useState(story.points);
     const [newAssignedTo, setAssignedTo] = useState(story.assignedTo);
-    const [newDueDate, setDueDate] = useState(dayjs(story.due));
+    const [newDueDate, setDueDate] = useState(dayjs(Date(story.due)));
 
     const handlePatch = () => {
         patchStory(newName, newDescription, newIcon, epicId, newOwner, newState, newPoints, newAssignedTo, newDueDate, story.created, story.started, story.finished, story.id);
@@ -85,6 +85,7 @@ function UserStorieEdit({ epicId, story, handleClose, open }) {
                         onChange={(event) => {
                             setOwner(event.target.value);
                         }}
+                        type="number"
                     />
                     <FormControl fullWidth variant="outlined" margin="normal">
                         <InputLabel id="state-label">Estado</InputLabel>
