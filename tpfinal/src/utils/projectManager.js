@@ -7,7 +7,6 @@ export async function getProjects() {
     { method: "GET" }
   );
   let data = await response.json();
-  console.log(data);
   data = clearData(data.documents);
   return data;
 }
