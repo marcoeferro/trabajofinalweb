@@ -7,6 +7,7 @@ export async function getProjects() {
     { method: "GET" }
   );
   let data = await response.json();
+  console.log(data);
   data = clearData(data.documents);
   return data;
 }
@@ -49,7 +50,7 @@ const dataBuilder = (name, description, icon, members, dueDate) => {
         stringValue: "todo",
       },
       dueDate: {
-        stringValue: dueDate.format('YYYY-MM-DDTHH:mm:ss.SSSZ'),
+        timestampValue: dueDate.format('YYYY-MM-DDTHH:mm:ss.SSSZ'),
       },
       members: {
         arrayValue: {
