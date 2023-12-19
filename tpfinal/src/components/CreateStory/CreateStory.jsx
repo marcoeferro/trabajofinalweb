@@ -41,7 +41,7 @@ function CreateStory({ onClose, onStoryCreated, epicaId }) {
       name,
       description,
       icon,
-      epicId,
+      epicaId,
       ownerId,
       state,
       points,
