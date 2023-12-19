@@ -10,6 +10,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { useParams } from "react-router-dom";
 import { getEpicsByProjectId } from "@/utils/epicManager";
+import dayjs from "dayjs";
 
 const EpicDetails = () => {
   const { projectId, epicId } = useParams()
@@ -23,7 +24,7 @@ const EpicDetails = () => {
   // Inicializa los filtros
   const [filtrado, setFiltrado] = useState(false);
   const [filtroName, setfiltroName] = useState('');
-  const [filtroDate, setFiltroDate] = useState(null);
+  const [filtroDate, setFiltroDate] = useState(dayjs(Date.now()));
   const [filtroState, setFiltroState] = useState('');
 
   //modal

@@ -9,6 +9,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
+import dayjs from 'dayjs';
 
 const ProjectsList = ({ listaProyectos }) => {
 
@@ -19,7 +20,7 @@ const ProjectsList = ({ listaProyectos }) => {
     // Inicializa los filtros
     const [filtrado, setFiltrado] = useState(false);
     const [filtroName, setfiltroName] = useState('');
-    const [filtroDate, setFiltroDate] = useState(null);
+    const [filtroDate, setFiltroDate] = useState(dayjs(Date.now()));
     const [filtroState, setFiltroState] = useState('');
 
     //modal

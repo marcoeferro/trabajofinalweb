@@ -10,6 +10,7 @@ import { getEpicsByProjectId } from "@/utils/epicManager";
 import CreateEpic from "../CreateEpic/CreateEpic";
 import getProjects from "@/utils/projectManager";
 import EpicCard from "../EpicCard/EpicCard";
+import dayjs from "dayjs";
 
 const ProjectsDetails = ({ projects }) => {
   const { projectId, epicId } = useParams()
@@ -22,7 +23,7 @@ const ProjectsDetails = ({ projects }) => {
   // Inicializa los filtros
   const [filtrado, setFiltrado] = useState(false);
   const [filtroName, setfiltroName] = useState('');
-  const [filtroDate, setFiltroDate] = useState(null);
+  const [filtroDate, setFiltroDate] = useState(dayjs(Date.now()));
   const [filtroState, setFiltroState] = useState('');
 
   //modal
