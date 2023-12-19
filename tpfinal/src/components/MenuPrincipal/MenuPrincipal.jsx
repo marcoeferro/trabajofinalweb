@@ -48,7 +48,7 @@ const MenuPrincipal = ({ handleOpenSideMenu }) => {
                                 <Link color="inherit" to={`/my-projects/${pathnames[1]}`}>
                                     <Typography variant="h6">Proyecto {`${proyecto ? proyecto.name : ''}`}</Typography>
                                 </Link>
-                                <Link color="inherit" to={`/my-projects/${pathnames[3]}/${pathnames[2]}`}>
+                                <Link color="inherit" to={`/my-projects/${pathnames[1]}/${pathnames[2]}`}>
                                     <Typography variant="h6">Epica {`${epica ? epica.name : ''}`}</Typography>
                                 </Link>
                                 <Typography color="textPrimary" variant="h6">Historia {`${historia ? historia.name : ''}`}</Typography>
