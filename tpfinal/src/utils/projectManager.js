@@ -12,6 +12,10 @@ export async function getProjects() {
 }
 export default getProjects;
 
+const dateToString = (date) => {
+  return date.$D.toString()+"/"+date.$M.toString()+"/"+date.$y.toString()
+}; //gets the 10 first characters of the timeStamp string.
+
 const clearData = (data) => {
   let filteredData = [];
   data.map((item) => {
@@ -22,7 +26,7 @@ const clearData = (data) => {
       icon: item.fields.icon.stringValue,
       members: item.fields.members.arrayValue.values,
       state: item.fields.state.stringValue,
-      dueDate: item.fields.dueDate.timestampValue
+      dueDate: dateToString(dayjs(item.fields.dueDate.timestampValue))
     });
   });
   return filteredData; //clears data
@@ -80,6 +84,7 @@ export async function patchProject(name, description, icon, members, dueDate, id
     body: JSON.stringify(data),
   };
   let response = await fetch(targetUrl, options)
+  .then((data) => console.log(data));
 }
 
 //DELETE

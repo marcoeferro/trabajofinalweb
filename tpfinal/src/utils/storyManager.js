@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-
+import customParseFormat from "dayjs/plugin/customParseFormat";
 //GET//
 export async function getStories() {
   const response = await fetch(
@@ -38,6 +38,7 @@ const clearData = (data) => {
       state: item.fields.state.stringValue,
       ownerId: item.fields.ownerId.integerValue,
       assignedTo: item.fields.assignedTo.integerValue,
+      points: item.fields.points.integerValue,
       created: dateToString(dayjs(item.fields.created.timestampValue)),
       due: dateToString(dayjs(item.fields.due.timestampValue)),
       started: dateToString(dayjs(item.fields.started.timestampValue)),
@@ -49,6 +50,8 @@ const clearData = (data) => {
 //dayjs(Date.now()).format('YYYY-MM-DDTHH:mm:ss.SSSZ')
 //POST//
 const dataBuilder = (name, description, icon, epicId, ownerId, state, points, assignedTo, due, created, started, finished) => {
+  dayjs.extend(customParseFormat)
+  console.log()
   return {
     fields: {
       name: {
@@ -76,16 +79,16 @@ const dataBuilder = (name, description, icon, epicId, ownerId, state, points, as
         integerValue: points,
       },
       created: {
-        timestampValue: created,
+        timestampValue: dayjs(created,"DD/MM/YY").format('YYYY-MM-DDTHH:mm:ss.SSSZ'),
       },
       due: {
-        timestampValue: due,
+        timestampValue: due.format('YYYY-MM-DDTHH:mm:ss.SSSZ'),
       },
       started: {
-        timestampValue: started,
+        timestampValue: dayjs(started,"DD/MM/YY").format('YYYY-MM-DDTHH:mm:ss.SSSZ'),
       },
       finished: {
-        timestampValue: finished,
+        timestampValue: dayjs(finished,"DD/MM/YY").format('YYYY-MM-DDTHH:mm:ss.SSSZ'),
       },
     },
   };
@@ -105,6 +108,7 @@ export async function postStory(name, description, icon, epicId, ownerId, state,
     .then((response) => response.json())
     .then((data) => console.log(data));
 }
+
 
 export async function patchStory(name, description, icon, epicId, ownerId, state, points, assignedTo, due, created, started, finished, id) {
   const targetUrl =

@@ -8,7 +8,6 @@ import TaskEdit from "../TaskEdit/TaskEdit";
 import { useParams, Link } from "react-router-dom";
 
 const TaskCard = ({ task }) => {
-    const { projectId, epicId, storieID } = useParams()
     const [openDelete, setOpenDelete] = useState(false)
     const handleOpenDelete = () => {
         setOpenDelete(!openDelete)
@@ -45,7 +44,7 @@ const TaskCard = ({ task }) => {
                             </Typography> : "Esta task no tiene descripcion"}
                     </CardContent>
                 </CardActionArea>
-                <TaskEdit handleClose={handleOpenEdit} open={openEdit} storieID={storieID} task={task} />
+                <TaskEdit handleClose={handleOpenEdit} open={openEdit} storieID={task.storyId} task={task} />
                 <ResponsiveDialog id={task.id} action={deleteTask} open={openDelete} handleOpen={handleOpenDelete} dialogTitle={"Esta Seguro que desea eliminar esta Tarea?"} dialogText={"Esta accion eliminara el Tarea de manera permanente"} />
             </Card>
         );
