@@ -73,11 +73,7 @@ function App() {
           />
           {/* Nueva ruta para los detalles de historias */}
           <Route
-            path="/my-projects/:projectId/:epicId/:storyId"
-            element={<UserStoryDetail />}
-          />
-          <Route
-            path="/test"
+            path="/my-projects/:projectId/:epicId/:storieId"
             element={<UserStoryDetail />}
           />
         </Routes>

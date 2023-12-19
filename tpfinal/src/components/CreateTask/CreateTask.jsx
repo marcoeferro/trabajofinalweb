@@ -17,7 +17,7 @@ function CreateTask({ onClose, storieId }) {
             description,
             storieId,
             createdDate,
-            dueDate.format('YYYY-MM-DDTHH:mm:ss.SSSZ'))
+            dueDate)
         onClose()
     };
 

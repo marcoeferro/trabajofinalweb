@@ -1,13 +1,24 @@
 import { patchTask } from "@/utils/taskManager";
-import React, { useState } from "react";
-import { TextField, Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Select, MenuItem, InputLabel, FormControl } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { TextField, Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from "@mui/material";
+import dayjs from "dayjs";
 
 function TaskEdit({ task, storieID, handleClose, open }) {
     const [newName, setName] = useState(task.name);
     const [newDescription, setDescription] = useState(task.description);
+    const [dueDate, setDueDate] = useState(dayjs(Date(task.dueDate)))
+    const [cretedDate, setCreatedDate] = useState(dayjs(Date(task.cretedDate)))
 
     const handlePatch = () => {
-        patchTask(newName, newDescription, storieID, task.createdDate, task.dueDate, task.id);
+        patchTask(
+            newName,
+            newDescription,
+            storieID,
+            dueDate,
+            cretedDate,
+            task.id
+        );
+        handleClose();
     };
 
     return (

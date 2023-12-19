@@ -8,12 +8,15 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import TaskCard from "../TaskCard/TaskCard";
 import { getTasksByStoryId } from "@/utils/taskManager";
 import CreateTask from "../CreateTask/CreateTask";
-import { getStoriesByEpicId } from "@/utils/storyManager";
+import { getStories } from "@/utils/storyManager";
+import { useParams } from "react-router-dom";
 
-const UserStorieDetail = ({ storie }) => {
-    if (!storie) {
+const UserStorieDetail = () => {
+    const { projectId, epicId, storieId } = useParams()
 
-    }
+    //parametros 
+    const [storie, setStorie] = useState(null)
+
     //listas
     const [lista, setLista] = useState(null);
     const [listaFiltrada, setListaFiltrada] = useState(null);
@@ -31,12 +34,16 @@ const UserStorieDetail = ({ storie }) => {
 
     //setea lista
     useEffect(() => {
-        getTasksByStoryId(storie.id).then((data) => {
+        getStories().then((data) => {
+            const selectedStory = data.find(a => String(a.id) === storieId)
+            setStorie(selectedStory)
+        })
+        getTasksByStoryId(storieId).then((data) => {
             setLista(data)
             setListaFiltrada(data)
         })
-        getStoriesByEpicId
-    }, [storie])
+
+    }, [storieId])
 
     //Funciones Filtro
     const aplicarFiltro = () => {
@@ -60,7 +67,7 @@ const UserStorieDetail = ({ storie }) => {
 
     if (!storie) {
         return <p>Historia no encontrada</p>;
-    } else if (storie) {
+    } else {
         return (
             <div>
                 <Grid container justifyContent={'center'} spacing={1} margin={'10px'}>
@@ -78,7 +85,7 @@ const UserStorieDetail = ({ storie }) => {
                 >
                     <CreateTask storieId={storie.id} onClose={handleClose} />
                 </Modal>
-                <h2>{storie.name} - Detalles de la Historia</h2>
+                <h2> Detalles de la Historia - {storie.name}</h2>
                 <p>{storie.description}</p>
                 {listaFiltrada ? (
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -130,11 +137,12 @@ const UserStorieDetail = ({ storie }) => {
                         </Grid>
                     </LocalizationProvider>
                 ) : (
-                    <p>No hay historias de usuario definidas para esta épica.</p>
+                    <p>No hay Tareas definidas para esta Historia de usuario.</p>
                 )
                 }
             </div >
         );
     }
+
 }
 export default UserStorieDetail;
