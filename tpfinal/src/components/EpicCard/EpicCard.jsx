@@ -24,7 +24,7 @@ const EpicCard = ({ epica }) => {
         </Typography>)
     } else {
         return (
-            <Card sx={{ maxWidth: 345, margin: '10px' }}>
+            <Card sx={{ maxWidth: 345 }}>
                 <CardActionArea>
                     <CardContent>
                         <Grid container alignItems="center">
