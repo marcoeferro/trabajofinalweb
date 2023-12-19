@@ -5,13 +5,16 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import customParseFormat from "dayjs/plugin/customParseFormat";
+import dayjs from "dayjs";
 
 function ProjectEdit({ project, handleClose, open }) {
     const [newName, setName] = useState(project.name);
     const [newDescription, setDescription] = useState(project.description);
     const [newIcon, setIcon] = useState(project.icon);
     const [newMembers, setMembers] = useState(project.members);
-    const [newDueDate, setDueDate] = useState(project.dueDate);
+    const [newDueDate, setDueDate] = useState(dayjs(project.dueDate,"DD/MM/YY"));
+    dayjs.extend(customParseFormat)
 
     const handlePatch = () => {
         patchProject(newName, newDescription, newIcon, newMembers, newDueDate, project.id);
