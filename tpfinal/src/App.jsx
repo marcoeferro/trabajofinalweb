@@ -33,12 +33,6 @@ function App() {
   const [openSideMenu, setOpenSideMenu] = useState(false)
   const handleOpenSideMenu = () => setOpenSideMenu(!openSideMenu)
 
-  const epica = {
-    description: "d",
-    projectId: "1701992079608",
-    icon: "📈",
-    name: "test 1,"
-  }
   return (
     <Router>
       <MenuPrincipal handleOpenSideMenu={handleOpenSideMenu} />

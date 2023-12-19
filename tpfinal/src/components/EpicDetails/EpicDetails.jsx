@@ -113,7 +113,7 @@ const EpicDetails = () => {
                   id='date'
                   label="Fecha"
                   value={filtroDate || ''}
-                  onChange={(e) => setFiltroDate(e.target.value)}
+                  onChange={(value) => setFiltroDate(value)}
                   renderInput={(params) => <TextField {...params} />}
                 />
               </Grid>

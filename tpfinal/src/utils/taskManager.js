@@ -78,6 +78,7 @@ export async function postTask(name, description, storyId,createdDate,dueDate) {
 //PATCH
 
 export async function patchTask(name, description, storyId,createdDate,dueDate,id) {
+  console.log("name"+name+",descripton"+description+", storyId"+storyId+" ,createdDate"+createdDate+" ,dueDate"+dueDate)
   const targetUrl =
     "https://firestore.googleapis.com/v1/projects/pmapp-e71a2/databases/(default)/documents/tasks/" +
     id.toString(); //url objetivo, object.id es la id del documento a reemplazar
