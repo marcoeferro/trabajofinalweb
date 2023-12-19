@@ -23,7 +23,7 @@ function TaskEdit({ task, storieID, handleClose, open }) {
 
     return (
         <Dialog open={open} onClose={handleClose}>
-            <DialogTitle>Editar Epica</DialogTitle>
+            <DialogTitle>Editar Tarea</DialogTitle>
             <DialogContent>
                 <DialogContentText>
                     Por favor, edita los detalles de la Tarea a continuación.
