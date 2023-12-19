@@ -42,7 +42,6 @@ const ProjectsDetails = ({ projects }) => {
 
   }, [epicId, projectId])
 
-
   //Funciones Filtro
   const aplicarFiltro = () => {
     const nuevaListaFiltrada = lista.filter((storie) => {
